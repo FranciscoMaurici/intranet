@@ -4,7 +4,7 @@ import { getToken } from 'next-auth/jwt'
 import prisma from '@prisma'
 import { User } from '@prisma/client'
 import {
-  IAnnouncement,
+  IAnnouncement, 
   IAnnouncementDeleteResponse,
   IAnnouncementGetAllRequest,
   IAnnouncementGetAllResponse,
