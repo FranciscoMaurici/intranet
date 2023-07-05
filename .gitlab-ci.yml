@@ -1,0 +1,81 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind
+
+validate:
+  stage: test
+  stage: test
+  image: node:18-alpine
+  tags: [ saas-linux-large-amd64 ]
+  before_script:
+    - apk add g++ make py3-pip
+    - yarn install --cache-folder .yarn
+  cache:
+    paths:
+    - node_modules/
+    - .yarn
+  script:
+    - yarn lint
+    - yarn type-check
+    - yarn test:ci
+  except:
+    - develop
+    - /^release/
+    - main
+
+build:
+  stage: build
+  image: jdrouet/docker-with-buildx:stable
+  tags: [ saas-linux-large-amd64 ]
+  script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER registry.gitlab.com --password-stdin
+    - docker buildx create --use
+    - docker buildx build -t registry.gitlab.com/distillery/internal-projects/intranet:$CI_COMMIT_SHORT_SHA -t registry.gitlab.com/distillery/internal-projects/intranet:$TAG --platform linux/amd64 --push .
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      variables:
+        TAG: "dev"
+    - if: '$CI_COMMIT_BRANCH =~ /^release/'
+      variables:
+        TAG: "qa"
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      variables:
+        TAG: "prod"
+
+deploy:
+  tags: [ saas-linux-large-amd64 ]
+  stage: deploy
+  image:
+    name: dtzar/helm-kubectl:3.11.3
+    entrypoint: ['']
+  before_script:
+    - git clone https://deploy_pull_repo:glpat-xfa57w9C9J_HzjNZqvce@gitlab.com/distillery/internal-projects/intranet.git
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context distillery/internal-projects/intranet:$CLUSTER
+    - helm ls -A
+    - helm delete $BRANCH_ENV -n $BRANCH_ENV || exit_code=$?
+    - if [ $exit_code -ne 0 ]; then echo "Helm deletion failed. Maybe there wasn't any cluster to delete?"; fi;
+    - sleep 60
+    - helm install -n $BRANCH_ENV $BRANCH_ENV intranet/DevOps/chart_$BRANCH_ENV/ -f intranet/DevOps/chart_$BRANCH_ENV/values.yaml --force
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      variables:
+        BRANCH_ENV: "dev"
+        CLUSTER: "gitlab-k8s-agent"
+    - if: '$CI_COMMIT_BRANCH =~ /^release/'
+      variables:
+        BRANCH_ENV: "qa"
+        CLUSTER: "gitlab-k8s-agent"
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      variables:
+        BRANCH_ENV: "prod"
+        CLUSTER: "intranet"

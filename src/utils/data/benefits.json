@@ -1,0 +1,191 @@
+{
+  "no-title": {
+    "benefits": [
+      {
+        "id": 24,
+        "title": "Our Vision",
+        "description": "Build a world-class professional services organization.",
+        "slug": "vision",
+        "hasMoreDetails": false
+      },
+      {
+        "id": 25,
+        "title": "Our Mission",
+        "description": "Partner with our clients to solve their business challenges by providing best-in-class talent.",
+        "slug": "mission",
+        "hasMoreDetails": false
+      },
+      {
+        "id": 2,
+        "title": "Flexibility and Remote Work",
+        "description": "We like to give people the freedom to work where they want, whether they at their desk or at home.",
+        "slug": "flexibility-and-remote-work",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 5,
+        "title": "Diverse and Inclusive Way of Thinking",
+        "description": "Come and be yourself, everyone is welcome to an environment built on trust and respect.",
+        "slug": "way-of-thinking",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 1,
+        "title": "Warm Onboarding Welcome",
+        "description": "Welcome to the team! Relax and friendly environment since day one to understanding company processes. Welcome to a work culture that values a positive attitude and camaraderie. Hope you have a good time here!",
+        "slug": "onboarding",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 6,
+        "title": "Rewards and Recognition Environment",
+        "description": "Recognition and appreciation are essential in our work environment. We always take a moment to recognize your achievements, praising milestones and celebrate!",
+        "slug": "rewards-and-recognition",
+        "hasMoreDetails": true
+      }
+    ]
+  },
+  "enjoy-connect": {
+    "title": "Enjoy & Connect",
+    "benefits": [
+      {
+        "id": 3,
+        "title": "Office Locations as Optional Thinking Spaces",
+        "description": "Take advantage of the facilities in Mexico City, Córdoba and Buenos Aires. It's the perfect chance to connect on a deeper level with your teammates and other company members.",
+        "slug": "office-locations-and-thinking-spaces",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 4,
+        "title": "Events",
+        "description": "Full of great moments to have fun and share experiences.",
+        "slug": "events",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 16,
+        "title": "All Hands and Town Hall Meetings",
+        "description": "Get an overview of our business results and goals to be informed in a timely manner. Get clear details about the company's next steps, the status of projects and upcoming challenges.",
+        "slug": "meetings",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 17,
+        "title": "TGIF Touchbase",
+        "description": "Every 2 weeks we have a relaxed space to welcome new members, celebrate birthdays and be together virtually to share stories, doubts or activities.",
+        "slug": "tgif",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 18,
+        "title": "Coffee & Conversation",
+        "description": "Informal monthly meetings to get to know our leaders.",
+        "slug": "coffee-and-conversation",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 19,
+        "title": "Newsletter",
+        "description": "We like to keep you informed. Get an overview of the events of the last months and the forecasts for the near future.",
+        "slug": "newsletter",
+        "hasMoreDetails": true
+      }
+    ]
+  },
+  "learn-and-growth": {
+    "title": "Learn and Grow",
+    "benefits": [
+      {
+        "id": 21,
+        "title": "Training & Technical Certifications sponsorship",
+        "description": "We're all about enhancing our teams skills to reach their personal and professional goals! You can find free, unlimited access to books, playlists, articles, work methods, soft skills, and various tools to keep up with your career path.",
+        "slug": "trainings-and-certifications",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 22,
+        "title": "English School",
+        "description": "In order to improve your language skills while working with international clients, we've focused on offering specialized English classes for levels B1 and below.",
+        "slug": "english-school",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 23,
+        "title": "Meet Up Forums",
+        "description": "Do you want to share your knowledge and connect with colleagues with similar interests? Throughout the month we encourage everybody to take a moment and present to the Distillery community various topics such as movies, video games, pop culture, and more.",
+        "slug": "meetup-forums",
+        "hasMoreDetails": true
+      }
+    ]
+  },
+  "be-well": {
+    "title": "Be Well",
+    "benefits": [
+      {
+        "id": 9,
+        "title": "Performance Bonus",
+        "description": "As part of the performance management process, all employees are eligible for an annual performance bonus based on personal and organizational performance.",
+        "icon": "3",
+        "slug": "performance-bonus",
+        "hidden": true,
+        "hasMoreDetails": true
+      },
+      {
+        "id": 8,
+        "title": "Merit Increase",
+        "description": "As part of our Annual Performance Management Process, all employees are eligible to receive an annual increase to reward their work!",
+        "slug": "merit-increase",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 12,
+        "title": "Maternity Leave",
+        "description": "Start this exciting new chapter with the legally established days off.",
+        "slug": "maternity-leave",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 13,
+        "title": "Paternity Leave",
+        "description": "Receive the newest member of your family and take some days off to spend time together.",
+        "slug": "paternity-leave",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 10,
+        "title": "Vacation Days",
+        "description": "Work/life balance is very important to us, therefore we encourage our teams to enjoy their days off.",
+        "slug": "vacation-days",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 11,
+        "title": "Vacation Premium *FTE",
+        "description": "Each job anniversary, you'll receive a payment according to the amount of vacations earned in that current year. Each country has its own process.",
+        "slug": "vacation-premium",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 7,
+        "title": "Christmas Bonus *FTE",
+        "description": "Distillery works hard to stay in compliance with legal requirements, therefore we offer our Full Time Employees, this benefit.",
+        "slug": "christmas-bonus",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 14,
+        "title": "Health Private Service *FTE",
+        "description": "Stay safe and protected by a strong Private Major Medical Insurance.",
+        "slug": "health-private-service",
+        "hasMoreDetails": true
+      },
+      {
+        "id": 15,
+        "title": "Dental Care *FTE",
+        "description": "Additional to the Medical Insurance, take care of your smile with the Dental Plan.",
+        "slug": "dental-care",
+        "hasMoreDetails": true
+      }
+    ]
+  }
+}

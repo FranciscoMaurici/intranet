@@ -1,0 +1,4183 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Intranet API Documentation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/announcements": {
+      "get": {
+        "summary": "Get list of Announcement items",
+        "tags": ["Announcement"],
+        "responses": {
+          "200": {
+            "description": "Get Announcement items successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IAnnouncementGetAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Announcement item",
+        "tags": ["Announcement"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IAnnouncementPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Announcement item was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IAnnouncementPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/announcements/{id}": {
+      "put": {
+        "summary": "Update Announcement item by ID",
+        "tags": ["Announcement"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IAnnouncementPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Announcement item was updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IAnnouncementPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Announcement item by ID",
+        "tags": ["Announcement"],
+        "description": "API to delete an Announcement item, this is only a soft delete changing the status",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Announcement item was deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IAnnouncementDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/benefits": {
+      "get": {
+        "summary": "Get list of Benefit items",
+        "tags": ["Benefit"],
+        "responses": {
+          "200": {
+            "description": "Get Benefit items successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBenefitGetAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/benefits/{id}": {
+      "get": {
+        "summary": "Get a benefit by id",
+        "tags": ["Benefit"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Benefit successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBenefitGetByIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Benefit not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBenefit404ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Benefit item by ID",
+        "tags": ["Benefit"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IBenefitPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Benefit item was updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBenefitPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Benefit not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBenefit404ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/comments": {
+      "post": {
+        "summary": "Create a Comment item",
+        "tags": ["Comment"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ICommentPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Comment item was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICommentPostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/comments/{id}": {
+      "delete": {
+        "summary": "Delete Comment item by ID",
+        "tags": ["Comment"],
+        "description": "API to delete a Comment item, this is only a soft delete changing the status",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Comment item was deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ICommentDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/handbook": {
+      "get": {
+        "summary": "Get list of Handbook items",
+        "tags": ["Handbook"],
+        "responses": {
+          "200": {
+            "description": "Get Handbook items successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IHandbookGetAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Handbook item",
+        "tags": ["Handbook"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IHandbookPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Handbook item was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IHandbookPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/handbook/{slug}": {
+      "get": {
+        "summary": "Get Handbook item by ID",
+        "tags": ["Handbook"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/slug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Handbook item was retrieved by ID successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IHandbookGetByIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/handbook/{id}": {
+      "put": {
+        "summary": "Update Handbook item by ID",
+        "tags": ["Handbook"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IHandbookPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Handbook item was updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IHandbookPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Handbook item by ID",
+        "tags": ["Handbook"],
+        "description": "API to delete a handbook item, this is only a soft delete changing the status",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Handbook item was deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IHandbookDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/learning-paths": {
+      "get": {
+        "summary": "Get list of LearningPath items",
+        "tags": ["Learning Path"],
+        "responses": {
+          "200": {
+            "description": "Get LearningPath items successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ILearningPathGetAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/users/managepermissions": {
+      "get": {
+        "summary": "Get all user permissions",
+        "tags": ["Permissions"],
+        "responses": {
+          "200": {
+            "description": "Get all user permissions successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPermissionsGetAllPermissions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "summary": "Update user permissions",
+        "tags": ["Permissions"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IPermissionsPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The permissions were set successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPermissionsPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/users/managepermissionsTable": {
+      "get": {
+        "summary": "Get permissions table structure",
+        "tags": ["Permissions Table"],
+        "responses": {
+          "200": {
+            "description": "Get permissions table structure successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPermissionsGetPermissionsTable"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/open-positions": {
+      "get": {
+        "summary": "Get list of Open Position items",
+        "tags": ["Open Position"],
+        "responses": {
+          "200": {
+            "description": "Get Open Position items successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenPositionGetAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a Open Position item",
+        "tags": ["Open Position"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IOpenPositionPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The OpenPosition item was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenPositionPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/open-positions/{id}": {
+      "put": {
+        "summary": "Update Open Position item by ID",
+        "tags": ["Open Position"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IOpenPositionPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Open Position item was updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenPositionPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Open Position item by ID",
+        "tags": ["Open Position"],
+        "description": "API to delete an open position item, this is only a soft delete changing the status",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Open Position item was deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenPositionDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/reactions": {
+      "get": {
+        "summary": "Get all Reaction Types",
+        "tags": ["Reaction"],
+        "responses": {
+          "200": {
+            "description": "Get Reaction Types successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReactionGetAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/reactions/announcement": {
+      "post": {
+        "summary": "Post a Reaction Announcement",
+        "tags": ["Reaction"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReactionAnnouncementPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Post Reaction successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReactionAnnouncementPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/reactions/comment": {
+      "post": {
+        "summary": "Post a Reaction Comment",
+        "tags": ["Reaction"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReactionCommentPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Post Reaction successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReactionCommentPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/reactions/announcement/{id}": {
+      "put": {
+        "summary": "Update a Reaction Announcement",
+        "tags": ["Reaction"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReactionAnnouncementPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update Reaction successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReactionAnnouncementPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an Announcement Reaction",
+        "tags": ["Reaction"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete Reaction successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReactionAnnouncementDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/reactions/comment/{id}": {
+      "put": {
+        "summary": "Update a Reaction Comment",
+        "tags": ["Reaction"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReactionCommentPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update Reaction successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReactionCommentPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a Comment Reaction",
+        "tags": ["Reaction"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete Reaction successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReactionCommentDeleteResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/tech-interviews": {
+      "post": {
+        "summary": "Create a Tech Interview",
+        "tags": ["Tech Interview"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ITechInterviewPostPutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The Tech Interview was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ITechInterviewPostPutResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get list of tech interview items",
+        "tags": ["Tech Interview"],
+        "responses": {
+          "200": {
+            "description": "Get tech interview items successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ITechInterviewGetAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/clients": {
+      "get": {
+        "summary": "Get all clients",
+        "tags": ["Clients"],
+        "responses": {
+          "200": {
+            "description": "Get all clients successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInterviewToolGetClients"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/countries": {
+      "get": {
+        "summary": "Get all countries",
+        "tags": ["Countries"],
+        "responses": {
+          "200": {
+            "description": "Get all countries successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInterviewToolGetCountries"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/tech-interview/users": {
+      "get": {
+        "summary": "Get all interview users",
+        "tags": ["Interview tool"],
+        "parameters": [
+          {
+            "name": "constant",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "TECH_INTERVIEW/INTERVIEWER"
+            },
+            "description": "module constant value",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get users successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPermissionsGetAllPermissions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/api/celebrations": {
+      "get": {
+        "summary": "Get list of Celebration items",
+        "tags": ["Celebration"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "schema": {
+              "type": "string",
+              "example": "2023-01-01"
+            },
+            "required": true,
+            "description": "The date to filter celebrations"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get Celebration items successfully.\nNote: The example response is hardcoded because the schema $ref was not working.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "job_title": {
+                          "type": "string"
+                        },
+                        "avatar": {
+                          "type": "string"
+                        },
+                        "avatar_file": {
+                          "type": "string",
+                          "format": "byte"
+                        },
+                        "years_difference": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "type": {
+                          "type": "string",
+                          "enum": ["birthday", "anniversary"]
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "2023-01-01": [
+                      {
+                        "name": "John Doe",
+                        "job_title": "Software Engineer",
+                        "avatar": "http://example.com/avatar.jpg",
+                        "avatar_file": "Base64 encoded string",
+                        "years_difference": 1,
+                        "type": "birthday"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "openapi": {
+      "0": "3",
+      "1": ".",
+      "2": "0",
+      "3": ".",
+      "4": "0"
+    },
+    "info": {
+      "title": "Converted from alltypes.swagger.yaml with typeconv",
+      "version": "1",
+      "x-id": "alltypes.swagger.yaml",
+      "x-comment": "Generated from .openapi/alltypes.ts by core-types-json-schema (https://github.com/grantila/core-types-json-schema) on behalf of typeconv (https://github.com/grantila/typeconv)"
+    }
+  },
+  "components": {
+    "responses": {
+      "400": {
+        "description": "There was an error during the process",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "message": "Error"
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "The user who is consulting this API needs to login first",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "items": {
+                "type": "string"
+              },
+              "example": {
+                "message": "The user is not logged in",
+                "error": "The user is not logged in"
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "id": {
+        "in": "path",
+        "name": "id",
+        "schema": {
+          "type": "integer"
+        },
+        "required": true,
+        "description": "Unique identifier of the entity"
+      },
+      "slug": {
+        "in": "path",
+        "name": "slug",
+        "schema": {
+          "type": "string"
+        },
+        "required": true,
+        "description": "Slug identifier of the entity"
+      }
+    },
+    "schemas": {
+      "Announcement": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "last_updated_by": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "user_id",
+          "last_updated_by",
+          "content",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "User": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "first_name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "middle_name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "last_name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "nullable": true,
+            "type": "string"
+          },
+          "location_code": {
+            "type": "string"
+          },
+          "birth_date": {
+            "anyOf": [
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "hire_date": {
+            "anyOf": [
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "job_title_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "department_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "worker_id": {
+            "type": "string"
+          },
+          "associate_id": {
+            "type": "string"
+          },
+          "reports_to": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "avatar_file": {
+            "anyOf": [
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "updated_at": {},
+          "created_at": {}
+        },
+        "required": [
+          "id",
+          "email",
+          "name",
+          "first_name",
+          "middle_name",
+          "last_name",
+          "country",
+          "location_code",
+          "birth_date",
+          "hire_date",
+          "job_title_id",
+          "department_id",
+          "worker_id",
+          "associate_id",
+          "reports_to",
+          "avatar",
+          "avatar_file",
+          "status",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Position": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "bullhorn_id": {
+            "type": "number"
+          },
+          "position_skill_id": {
+            "type": "number"
+          },
+          "client_id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "job_description": {
+            "type": "string"
+          },
+          "requirements": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "bullhorn_id",
+          "position_skill_id",
+          "client_id",
+          "title",
+          "job_description",
+          "requirements",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Benefit": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "title",
+          "content",
+          "location",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ActionPermission": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "constant": {
+            "type": "string"
+          },
+          "updated_at": {},
+          "created_at": {}
+        },
+        "required": [
+          "id",
+          "description",
+          "constant",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Module": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "constant": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "menu": {
+            "type": "string"
+          },
+          "updated_at": {},
+          "created_at": {}
+        },
+        "required": [
+          "id",
+          "description",
+          "constant",
+          "path",
+          "menu",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "UserModulePermission": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "module_id": {
+            "type": "number"
+          },
+          "action_permission_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "updated_at": {},
+          "created_at": {}
+        },
+        "required": [
+          "id",
+          "module_id",
+          "action_permission_id",
+          "user_id",
+          "status",
+          "updated_at",
+          "created_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "JobTitle": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": ["id", "name", "status", "created_at", "updated_at"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Department": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": ["id", "name", "status", "created_at", "updated_at"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "LearningPath": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "stack_id": {
+            "type": "number"
+          },
+          "seniority_id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "playlist": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "stack_id",
+          "seniority_id",
+          "name",
+          "url",
+          "description",
+          "playlist",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Seniority": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": ["id", "name", "status", "created_at", "updated_at"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Stack": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "department_id": {
+            "type": "number"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "name",
+          "department_id",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Comment": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "announcement_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "updated_at": {},
+          "created_at": {},
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "announcement_id",
+          "user_id",
+          "content",
+          "updated_at",
+          "created_at",
+          "status"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Reaction": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "updated_at": {},
+          "created_at": {},
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "icon",
+          "updated_at",
+          "created_at",
+          "status"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ReactionAnnouncement": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "reaction_id": {
+            "type": "number"
+          },
+          "announcement_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "updated_at": {},
+          "created_at": {},
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "reaction_id",
+          "announcement_id",
+          "user_id",
+          "updated_at",
+          "created_at",
+          "status"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ReactionComment": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "reaction_id": {
+            "type": "number"
+          },
+          "comment_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "updated_at": {},
+          "created_at": {},
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "reaction_id",
+          "comment_id",
+          "user_id",
+          "updated_at",
+          "created_at",
+          "status"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "WorkersUpdateDates": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "started_at": {},
+          "finished_at": {},
+          "executed_by": {
+            "type": "number"
+          }
+        },
+        "required": ["id", "started_at", "finished_at", "executed_by"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Handbook": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "parent_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "level": {
+            "nullable": true,
+            "type": "number"
+          },
+          "order": {
+            "nullable": true,
+            "type": "number"
+          },
+          "menu_index": {
+            "nullable": true,
+            "type": "string"
+          },
+          "is_full_article": {
+            "type": "boolean"
+          },
+          "use_title_on_homepage": {
+            "type": "boolean"
+          },
+          "homepage_text": {
+            "nullable": true,
+            "type": "string"
+          },
+          "full_article_content": {
+            "nullable": true,
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "title",
+          "slug",
+          "parent_id",
+          "level",
+          "order",
+          "menu_index",
+          "is_full_article",
+          "use_title_on_homepage",
+          "homepage_text",
+          "full_article_content",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Candidate": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "country_id": {
+            "type": "number"
+          },
+          "english_level": {
+            "type": "string"
+          },
+          "screening_feedback": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "email",
+          "country_id",
+          "english_level",
+          "screening_feedback",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Client": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": ["id", "name", "status", "created_at", "updated_at"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "TechInterview": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "interview_date": {
+            "anyOf": [
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "recruiter_id": {
+            "type": "number"
+          },
+          "candidate_id": {
+            "type": "number"
+          },
+          "position_id": {
+            "type": "number"
+          },
+          "interviewer_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "stack_manager_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "is_approved": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "comments": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "interview_date",
+          "recruiter_id",
+          "candidate_id",
+          "position_id",
+          "interviewer_id",
+          "stack_manager_id",
+          "is_approved",
+          "comments",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "CandidateAttachment": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "candidate_id": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          },
+          "interface": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CandidateAttachmentType"
+              },
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "candidate_id",
+          "url",
+          "interface",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Country": {
+        "$ref": "#/components/schemas/Duple"
+      },
+      "OpenPosition": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "client": {
+            "type": "string"
+          },
+          "openings": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "position_id": {
+            "nullable": true,
+            "type": "string"
+          },
+          "is_open": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "title",
+          "client",
+          "openings",
+          "description",
+          "position_id",
+          "is_open",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "PositionSkill": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "primary_skill_id": {
+            "type": "number"
+          },
+          "primary_skill_seniority_id": {
+            "type": "number"
+          },
+          "secondary_skill_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "secondary_skill_seniority_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "is_tech_lead": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "name",
+          "primary_skill_id",
+          "primary_skill_seniority_id",
+          "secondary_skill_id",
+          "secondary_skill_seniority_id",
+          "is_tech_lead",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Skill": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stack_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {}
+        },
+        "required": [
+          "id",
+          "name",
+          "stack_id",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Celebration": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "job_title": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "avatar_file": {
+            "anyOf": [
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "birth_date_month": {
+            "nullable": true,
+            "type": "number"
+          },
+          "birth_date_day": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hire_date_month": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hire_date_day": {
+            "nullable": true,
+            "type": "number"
+          },
+          "hire_date_year": {
+            "nullable": true,
+            "type": "number"
+          },
+          "years_difference": {
+            "anyOf": [
+              {
+                "nullable": true
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "name",
+          "job_title",
+          "avatar",
+          "avatar_file",
+          "birth_date_month",
+          "birth_date_day",
+          "hire_date_month",
+          "hire_date_day",
+          "hire_date_year",
+          "years_difference"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "CandidateAttachmentType": {
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IAdpToken": {
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "expirationTime": {
+            "type": "number"
+          }
+        },
+        "required": ["value", "expirationTime"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IAdpWorker": {
+        "properties": {
+          "associateID": {
+            "type": "string"
+          },
+          "workerID": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "preferredFirstName": {
+            "type": "string"
+          },
+          "preferredLastName": {
+            "type": "string"
+          },
+          "legalFirstName": {
+            "type": "string"
+          },
+          "legalMiddleName": {
+            "type": "string"
+          },
+          "legalLastName": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string"
+          },
+          "hireDate": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "string"
+          },
+          "photoData": {}
+        },
+        "required": [
+          "associateID",
+          "workerID",
+          "email",
+          "legalFirstName",
+          "legalMiddleName",
+          "legalLastName",
+          "birthDate",
+          "hireDate",
+          "photoUrl"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IAnnouncement": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Announcement"
+          },
+          {
+            "properties": {
+              "comments": {
+                "items": {
+                  "$ref": "#/components/schemas/IComment"
+                },
+                "type": "array"
+              },
+              "reaction_announcement": {
+                "items": {
+                  "$ref": "#/components/schemas/IAnnouncementReaction"
+                },
+                "type": "array"
+              },
+              "reactionsByGroup": {
+                "additionalProperties": {
+                  "items": {
+                    "$ref": "#/components/schemas/IAnnouncementReaction"
+                  },
+                  "type": "array"
+                },
+                "type": "object"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "IAnnouncementGetAllRequest": {},
+      "IAnnouncementGetAllResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Announcement"
+            },
+            "type": "array"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/IPaginationParams"
+          }
+        },
+        "required": ["data", "pagination"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IAnnouncementPostPutRequest": {
+        "properties": {
+          "user_id": {
+            "type": "number"
+          },
+          "last_updated_by": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          }
+        },
+        "required": ["user_id", "last_updated_by", "content", "status"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IAnnouncementPostPutResponse": {
+        "$ref": "#/components/schemas/Announcement"
+      },
+      "IAnnouncementDeleteRequest": {
+        "properties": {
+          "comments": {
+            "items": {
+              "$ref": "#/components/schemas/IComment"
+            },
+            "type": "array"
+          },
+          "reaction_announcement": {
+            "items": {
+              "$ref": "#/components/schemas/IAnnouncementReaction"
+            },
+            "type": "array"
+          },
+          "reactionsByGroup": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/IAnnouncementReaction"
+              },
+              "type": "array"
+            },
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IAnnouncementDeleteResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Announcement deleted"],
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IBenefit404ErrorResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Benefit not found"],
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IBenefitGetAllResponse": {
+        "properties": {
+          "benefits": {
+            "items": {
+              "$ref": "#/components/schemas/Benefit"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["benefits"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IBenefitGetByIdResponse": {
+        "properties": {
+          "benefit": {
+            "$ref": "#/components/schemas/Benefit"
+          }
+        },
+        "required": ["benefit"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IBenefitPutRequest": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IBenefitPutResponse": {
+        "properties": {
+          "benefit": {
+            "$ref": "#/components/schemas/Benefit"
+          }
+        },
+        "required": ["benefit"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ICelebration": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "job_title": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "avatar_file": {},
+          "years_difference": {
+            "type": "number"
+          },
+          "type": {
+            "anyOf": [
+              {
+                "enum": ["birthday"],
+                "type": "string"
+              },
+              {
+                "enum": ["anniversary"],
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "required": ["name", "job_title", "avatar", "type"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ICelebrationGetAllRequest": {
+        "properties": {
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": ["date"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ICelebrationGetAllResponse": {},
+      "IComment": {
+        "allOf": [
+          {
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "announcement_id": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              },
+              "created_at": {}
+            },
+            "required": ["id", "announcement_id", "content", "created_at"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          {
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/IUserPreview"
+              },
+              "reaction_comment": {
+                "items": {
+                  "$ref": "#/components/schemas/ICommentReactionPreview"
+                },
+                "type": "array"
+              },
+              "reactionsByGroup": {
+                "additionalProperties": {
+                  "items": {
+                    "$ref": "#/components/schemas/ICommentReaction"
+                  },
+                  "type": "array"
+                },
+                "type": "object"
+              }
+            },
+            "required": ["user"],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "ICommentPostRequest": {
+        "properties": {
+          "announcement_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": ["announcement_id", "user_id", "content"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ICommentPostResponse": {
+        "$ref": "#/components/schemas/Comment"
+      },
+      "ICommentDeleteResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Comment deleted"],
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Duple": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "name"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "State": {
+        "$ref": "#/components/schemas/Duple"
+      },
+      "Gender": {
+        "$ref": "#/components/schemas/Duple"
+      },
+      "Language": {
+        "$ref": "#/components/schemas/Duple"
+      },
+      "IArticle": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Handbook"
+          },
+          {
+            "properties": {
+              "children": {
+                "items": {
+                  "$ref": "#/components/schemas/IArticle"
+                },
+                "type": "array"
+              }
+            },
+            "required": ["children"],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "IHandbookGetAllResponse": {
+        "items": {
+          "$ref": "#/components/schemas/IArticle"
+        },
+        "type": "array"
+      },
+      "IHandbookGetByIdResponse": {
+        "$ref": "#/components/schemas/Handbook"
+      },
+      "IHandbookPostPutRequest": {
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "parent_id": {
+            "nullable": true,
+            "type": "number"
+          },
+          "level": {
+            "nullable": true,
+            "type": "number"
+          },
+          "order": {
+            "nullable": true,
+            "type": "number"
+          },
+          "is_full_article": {
+            "type": "boolean"
+          },
+          "use_title_on_homepage": {
+            "type": "boolean"
+          },
+          "homepage_text": {
+            "nullable": true,
+            "type": "string"
+          },
+          "full_article_content": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "slug",
+          "parent_id",
+          "level",
+          "order",
+          "is_full_article",
+          "use_title_on_homepage",
+          "homepage_text",
+          "full_article_content"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IHandbookPostPutResponse": {
+        "$ref": "#/components/schemas/Handbook"
+      },
+      "IHandbookDeleteResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Handbook deleted"],
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IPaginationParams": {
+        "properties": {
+          "pageSize": {
+            "type": "number"
+          },
+          "pageNum": {
+            "type": "number"
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "total": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IQueryCondition": {
+        "properties": {
+          "where": {
+            "properties": {
+              "OR": {
+                "items": {},
+                "type": "array"
+              },
+              "AND": {
+                "items": {},
+                "type": "array"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          }
+        },
+        "required": ["where"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IEntityDeleteRequest": {
+        "properties": {
+          "id": {
+            "type": "number"
+          }
+        },
+        "required": ["id"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IInterviewToolGetCountries": {
+        "items": {
+          "$ref": "#/components/schemas/Country"
+        },
+        "type": "array"
+      },
+      "IInterviewToolGetClients": {
+        "items": {
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "status": {
+              "type": "boolean"
+            }
+          },
+          "required": ["id", "name", "status"],
+          "additionalProperties": false,
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "ILead": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "mobile": {
+            "nullable": true,
+            "type": "string"
+          },
+          "phone": {
+            "nullable": true,
+            "type": "string"
+          },
+          "country": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Country"
+              },
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "city": {
+            "nullable": true,
+            "type": "string"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/State"
+              },
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "url": {
+            "nullable": true,
+            "type": "string"
+          },
+          "last_updated_by": {
+            "type": "number"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "is_active": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "first_name",
+          "last_name",
+          "email",
+          "company",
+          "mobile",
+          "country",
+          "city",
+          "state"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IStep": {
+        "properties": {
+          "isComplementary": {
+            "type": "boolean"
+          },
+          "seniority": {
+            "$ref": "#/components/schemas/Seniority"
+          }
+        },
+        "required": ["isComplementary", "seniority"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IStack": {
+        "properties": {
+          "paths": {
+            "items": {
+              "$ref": "#/components/schemas/IStep"
+            },
+            "type": "array"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IDepartment": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Department"
+          },
+          {
+            "properties": {
+              "stack": {
+                "items": {
+                  "$ref": "#/components/schemas/IStack"
+                },
+                "type": "array"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "ILearningPathGetAllResponse": {
+        "items": {
+          "$ref": "#/components/schemas/IDepartment"
+        },
+        "type": "array"
+      },
+      "IMessageType": {
+        "properties": {
+          "code": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          },
+          "severity": {}
+        },
+        "required": ["message", "severity"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IOpenPositionGetAllRequest": {},
+      "IOpenPositionGetAllResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/OpenPosition"
+            },
+            "type": "array"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/IPaginationParams"
+          }
+        },
+        "required": ["data", "pagination"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IOpenPositionPostPutRequest": {
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "client": {
+            "type": "string"
+          },
+          "openings": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "position_id": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "client",
+          "openings",
+          "description",
+          "position_id"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IOpenPositionPostPutResponse": {
+        "$ref": "#/components/schemas/OpenPosition"
+      },
+      "IOpenPositionDeleteRequest": {
+        "$ref": "#/components/schemas/IOpenPositionPostPutRequest"
+      },
+      "IOpenPositionDeleteResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Open position deleted"],
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "PermissionsFormValues": {
+        "properties": {
+          "'1/1'": {
+            "type": "boolean"
+          },
+          "'1/2'": {
+            "type": "boolean"
+          },
+          "'1/3'": {
+            "type": "boolean"
+          },
+          "'1/4'": {
+            "type": "boolean"
+          },
+          "'1/5'": {
+            "type": "boolean"
+          },
+          "'1/6'": {
+            "type": "boolean"
+          },
+          "'2/1'": {
+            "type": "boolean"
+          },
+          "'2/2'": {
+            "type": "boolean"
+          },
+          "'2/3'": {
+            "type": "boolean"
+          },
+          "'2/4'": {
+            "type": "boolean"
+          },
+          "'2/5'": {
+            "type": "boolean"
+          },
+          "'2/6'": {
+            "type": "boolean"
+          },
+          "'3/1'": {
+            "type": "boolean"
+          },
+          "'3/2'": {
+            "type": "boolean"
+          },
+          "'3/3'": {
+            "type": "boolean"
+          },
+          "'3/4'": {
+            "type": "boolean"
+          },
+          "'3/5'": {
+            "type": "boolean"
+          },
+          "'3/6'": {
+            "type": "boolean"
+          },
+          "'4/1'": {
+            "type": "boolean"
+          },
+          "'4/2'": {
+            "type": "boolean"
+          },
+          "'4/3'": {
+            "type": "boolean"
+          },
+          "'4/4'": {
+            "type": "boolean"
+          },
+          "'4/5'": {
+            "type": "boolean"
+          },
+          "'4/6'": {
+            "type": "boolean"
+          },
+          "'5/1'": {
+            "type": "boolean"
+          },
+          "'5/2'": {
+            "type": "boolean"
+          },
+          "'5/3'": {
+            "type": "boolean"
+          },
+          "'5/4'": {
+            "type": "boolean"
+          },
+          "'5/5'": {
+            "type": "boolean"
+          },
+          "'5/6'": {
+            "type": "boolean"
+          },
+          "'6/1'": {
+            "type": "boolean"
+          },
+          "'6/2'": {
+            "type": "boolean"
+          },
+          "'6/3'": {
+            "type": "boolean"
+          },
+          "'6/4'": {
+            "type": "boolean"
+          },
+          "'6/5'": {
+            "type": "boolean"
+          },
+          "'6/6'": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "PermissionsFormValuesExtended": {
+        "properties": {
+          "'1/1'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'1/2'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'1/3'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'1/4'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'1/5'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'1/6'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'2/1'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'2/2'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'2/3'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'2/4'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'2/5'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'2/6'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'3/1'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'3/2'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'3/3'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'3/4'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'3/5'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'3/6'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'4/1'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'4/2'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'4/3'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'4/4'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'4/5'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'4/6'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'5/1'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'5/2'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'5/3'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'5/4'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'5/5'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'5/6'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'6/1'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'6/2'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'6/3'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'6/4'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'6/5'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          },
+          "'6/6'": {
+            "$ref": "#/components/schemas/PFVExtender"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "CompletePermissionsFormValues": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PermissionsFormValues"
+          },
+          {
+            "properties": {
+              "userID": {
+                "type": "number"
+              },
+              "initialMappedModulePermissionsWithID": {
+                "$ref": "#/components/schemas/PermissionsFormValuesExtended"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "PermissionsTableStructureType": {
+        "items": {
+          "items": {
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "checkboxIdentifier": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "type": "array"
+      },
+      "IPermissionsGetPermissionsTable": {
+        "$ref": "#/components/schemas/PermissionsTableStructureType"
+      },
+      "IPermissionsGetAllPermissions": {
+        "items": {
+          "$ref": "#/components/schemas/UserState"
+        },
+        "type": "array"
+      },
+      "IPermissionsPostPutRequest": {
+        "properties": {
+          "userID": {
+            "type": "number"
+          },
+          "PermissionsArr": {
+            "items": {
+              "properties": {
+                "key": {},
+                "value": {
+                  "type": "boolean"
+                },
+                "id": {
+                  "type": "number"
+                }
+              },
+              "required": ["key", "value"],
+              "additionalProperties": false,
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["userID", "PermissionsArr"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IPermissionsPostPutResponse": {
+        "items": {
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "module_id": {
+              "type": "number"
+            },
+            "action_permission_id": {
+              "type": "number"
+            },
+            "user_id": {
+              "type": "number"
+            },
+            "status": {
+              "type": "boolean"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "created_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "module_id",
+            "action_permission_id",
+            "user_id",
+            "status",
+            "updated_at",
+            "created_at"
+          ],
+          "additionalProperties": false,
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "IQueryKeyToResponse": {
+        "properties": {
+          "announcements": {
+            "$ref": "#/components/schemas/IAnnouncementGetAllResponse"
+          },
+          "reactions": {
+            "$ref": "#/components/schemas/IReactionGetAllResponse"
+          },
+          "celebrations": {
+            "$ref": "#/components/schemas/ICelebrationGetAllResponse"
+          },
+          "handbook": {
+            "$ref": "#/components/schemas/IHandbookGetAllResponse"
+          },
+          "'learning-paths'": {
+            "$ref": "#/components/schemas/ILearningPathGetAllResponse"
+          },
+          "'open-positions'": {
+            "$ref": "#/components/schemas/IOpenPositionGetAllResponse"
+          },
+          "'users/managepermissions'": {
+            "items": {
+              "$ref": "#/components/schemas/UserState"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "announcements",
+          "reactions",
+          "celebrations",
+          "handbook",
+          "'learning-paths'",
+          "'open-positions'",
+          "'users/managepermissions'"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IMutationKeyToTypes": {
+        "properties": {
+          "[Mutations.CREATE_ANNOUNCEMENT]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IAnnouncementPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IAnnouncementPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.EDIT_ANNOUNCEMENT]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IAnnouncementPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IAnnouncementPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.DELETE_ANNOUNCEMENT]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IAnnouncementDeleteResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IAnnouncementDeleteRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.CREATE_POSITION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IOpenPositionPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IOpenPositionPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.EDIT_POSITION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IOpenPositionPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IOpenPositionPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.DELETE_POSITION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IOpenPositionDeleteResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IOpenPositionDeleteRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.UPDATE_BENEFIT]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IBenefitPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IBenefitPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.CREATE_COMMENT]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/ICommentPostResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/ICommentPostRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.DELETE_COMMENT]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/ICommentDeleteResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IEntityDeleteRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.CREATE_ANNOUNCEMENT_REACTION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IReactionAnnouncementPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IReactionAnnouncementPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.UPDATE_ANNOUNCEMENT_REACTION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IReactionAnnouncementPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IReactionAnnouncementPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.DELETE_ANNOUNCEMENT_REACTION]": {
+            "properties": {
+              "response": {},
+              "request": {
+                "$ref": "#/components/schemas/IEntityDeleteRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.CREATE_COMMENT_REACTION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IReactionCommentPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IReactionCommentPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.UPDATE_COMMENT_REACTION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IReactionCommentPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IReactionCommentPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.DELETE_COMMENT_REACTION]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/ICommentDeleteResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IEntityDeleteRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.UPDATE_USER_PERMISSIONS]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IPermissionsPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IPermissionsPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.CREATE_HANDBOOK_ARTICLE]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IHandbookPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IHandbookPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.UPDATE_HANDBOOK_ARTICLE]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IHandbookPostPutResponse"
+              },
+              "request": {
+                "$ref": "#/components/schemas/IHandbookPostPutRequest"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "[Mutations.DELETE_HANDBOOK_ARTICLE]": {
+            "properties": {
+              "response": {
+                "$ref": "#/components/schemas/IHandbookDeleteResponse"
+              },
+              "request": {
+                "type": "object"
+              }
+            },
+            "required": ["response", "request"],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        },
+        "required": [
+          "[Mutations.CREATE_ANNOUNCEMENT]",
+          "[Mutations.EDIT_ANNOUNCEMENT]",
+          "[Mutations.DELETE_ANNOUNCEMENT]",
+          "[Mutations.CREATE_POSITION]",
+          "[Mutations.EDIT_POSITION]",
+          "[Mutations.DELETE_POSITION]",
+          "[Mutations.UPDATE_BENEFIT]",
+          "[Mutations.CREATE_COMMENT]",
+          "[Mutations.DELETE_COMMENT]",
+          "[Mutations.CREATE_ANNOUNCEMENT_REACTION]",
+          "[Mutations.UPDATE_ANNOUNCEMENT_REACTION]",
+          "[Mutations.DELETE_ANNOUNCEMENT_REACTION]",
+          "[Mutations.CREATE_COMMENT_REACTION]",
+          "[Mutations.UPDATE_COMMENT_REACTION]",
+          "[Mutations.DELETE_COMMENT_REACTION]",
+          "[Mutations.UPDATE_USER_PERMISSIONS]",
+          "[Mutations.CREATE_HANDBOOK_ARTICLE]",
+          "[Mutations.UPDATE_HANDBOOK_ARTICLE]",
+          "[Mutations.DELETE_HANDBOOK_ARTICLE]"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IEntityKey": {
+        "anyOf": [
+          {
+            "enum": ["announcements"],
+            "type": "string"
+          },
+          {
+            "enum": ["open-positions"],
+            "type": "string"
+          },
+          {
+            "enum": ["benefits"],
+            "type": "string"
+          },
+          {
+            "enum": ["comments"],
+            "type": "string"
+          },
+          {
+            "enum": ["reactions/announcement"],
+            "type": "string"
+          },
+          {
+            "enum": ["reactions/comment"],
+            "type": "string"
+          },
+          {
+            "enum": ["users/managepermissions"],
+            "type": "string"
+          },
+          {
+            "enum": ["handbook"],
+            "type": "string"
+          },
+          {
+            "enum": ["reactions"],
+            "type": "string"
+          }
+        ]
+      },
+      "ICommentReactionPreview": {
+        "allOf": [
+          {
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "status": {
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "status"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          {
+            "properties": {
+              "reaction": {
+                "$ref": "#/components/schemas/IReactionPreview"
+              },
+              "user": {
+                "$ref": "#/components/schemas/IUserPreview"
+              }
+            },
+            "required": ["reaction", "user"],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "IReactionPreview": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "icon"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IUserReaction": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "reaction": {
+            "$ref": "#/components/schemas/Reaction"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "created_at": {},
+          "updated_at": {},
+          "user": {
+            "$ref": "#/components/schemas/IUserPreview"
+          }
+        },
+        "required": [
+          "id",
+          "reaction",
+          "status",
+          "created_at",
+          "updated_at",
+          "user"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IAnnouncementReaction": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/IUserReaction"
+          },
+          {
+            "properties": {
+              "announcement": {
+                "$ref": "#/components/schemas/IAnnouncement"
+              }
+            },
+            "required": ["announcement"],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "ICommentReaction": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/IUserReaction"
+          },
+          {
+            "properties": {
+              "comment": {
+                "$ref": "#/components/schemas/IComment"
+              }
+            },
+            "required": ["comment"],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "IReactionGetAllResponse": {
+        "items": {
+          "$ref": "#/components/schemas/Reaction"
+        },
+        "type": "array"
+      },
+      "IReactionAnnouncementPostPutRequest": {
+        "properties": {
+          "reaction_id": {
+            "type": "number"
+          },
+          "announcement_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          }
+        },
+        "required": ["reaction_id", "announcement_id", "user_id"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IReactionAnnouncementPostPutResponse": {
+        "$ref": "#/components/schemas/ReactionAnnouncement"
+      },
+      "IReactionAnnouncementDeleteResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Reaction Announcement deleted"],
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IReactionCommentPostPutRequest": {
+        "properties": {
+          "reaction_id": {
+            "type": "number"
+          },
+          "comment_id": {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          }
+        },
+        "required": ["reaction_id", "comment_id", "user_id"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IReactionCommentPostPutResponse": {
+        "$ref": "#/components/schemas/ReactionComment"
+      },
+      "IReactionCommentDeleteResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Reaction Comment deleted"],
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ITechInterviewGetAllRequest": {
+        "properties": {
+          "pageSize": {
+            "type": "number"
+          },
+          "pageNum": {
+            "type": "number"
+          },
+          "orderBy": {
+            "type": "string"
+          },
+          "total": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ITechInterviewGetAllResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/TechInterview"
+            },
+            "type": "array"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/IPaginationParams"
+          }
+        },
+        "required": ["data", "pagination"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ITechInterviewDeleteRequest": {
+        "$ref": "#/components/schemas/ITechInterviewPostPutRequest"
+      },
+      "ITechInterviewDeleteResponse": {
+        "properties": {
+          "message": {
+            "enum": ["Position deleted"],
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ITechInterviewPostPutRequest": {
+        "properties": {
+          "interviewer_id": {
+            "type": "number"
+          },
+          "stack_manager_id": {
+            "type": "number"
+          },
+          "recruiter_id": {
+            "type": "number"
+          },
+          "interview_datetime": {
+            "type": "string"
+          },
+          "comments": {
+            "type": "string"
+          },
+          "position": {
+            "properties": {
+              "primary_skill_id": {
+                "type": "number"
+              },
+              "primary_skill_seniority_id": {
+                "type": "number"
+              },
+              "secondary_skill_id": {
+                "type": "number"
+              },
+              "secondary_skill_seniority_id": {
+                "type": "number"
+              },
+              "is_tech_lead": {
+                "type": "boolean"
+              },
+              "bullhorn_id": {
+                "type": "number"
+              },
+              "job_description": {
+                "type": "string"
+              },
+              "job_requirements": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "primary_skill_id",
+              "primary_skill_seniority_id",
+              "secondary_skill_id",
+              "secondary_skill_seniority_id",
+              "is_tech_lead",
+              "bullhorn_id",
+              "job_description",
+              "job_requirements"
+            ],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "client": {
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "number"
+              }
+            },
+            "required": ["name", "id"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          "candidate": {
+            "properties": {
+              "first_name": {
+                "type": "string"
+              },
+              "last_name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "country_id": {
+                "type": "number"
+              },
+              "english_level": {
+                "type": "string"
+              },
+              "screening_feedback": {
+                "type": "string"
+              },
+              "code_test_url": {
+                "type": "string"
+              },
+              "cv": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "first_name",
+              "last_name",
+              "email",
+              "country_id",
+              "english_level",
+              "screening_feedback",
+              "code_test_url",
+              "cv"
+            ],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        },
+        "required": [
+          "interviewer_id",
+          "stack_manager_id",
+          "recruiter_id",
+          "interview_datetime",
+          "comments",
+          "position",
+          "client",
+          "candidate"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "ITechInterviewPostPutResponse": {
+        "$ref": "#/components/schemas/TechInterview"
+      },
+      "UserState": {
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "department": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          },
+          "position": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "string"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/Permissions"
+          },
+          "jobTitle": {
+            "$ref": "#/components/schemas/JobTitle"
+          },
+          "modulePermission": {
+            "items": {
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "module": {
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    }
+                  },
+                  "required": ["id"],
+                  "additionalProperties": false,
+                  "type": "object"
+                },
+                "actionPermission": {
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    }
+                  },
+                  "required": ["id"],
+                  "additionalProperties": false,
+                  "type": "object"
+                }
+              },
+              "required": ["id", "module", "actionPermission"],
+              "additionalProperties": false,
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "IUserPreview": {
+        "allOf": [
+          {
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "avatar": {
+                "type": "string"
+              }
+            },
+            "required": ["id", "name", "avatar"],
+            "additionalProperties": false,
+            "type": "object"
+          },
+          {
+            "properties": {
+              "jobTitle": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": ["name"],
+                "additionalProperties": false,
+                "type": "object"
+              }
+            },
+            "required": ["jobTitle"],
+            "additionalProperties": false,
+            "type": "object"
+          }
+        ]
+      },
+      "PFVExtender": {
+        "properties": {
+          "disabled": {
+            "type": "boolean"
+          },
+          "permissionID": {
+            "type": "number"
+          },
+          "selected": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object"
+      },
+      "Permissions": {
+        "properties": {
+          "announcementView": {
+            "type": "boolean"
+          },
+          "announcementCreate": {
+            "type": "boolean"
+          },
+          "announcementEdit": {
+            "type": "boolean"
+          },
+          "announcementDelete": {
+            "type": "boolean"
+          },
+          "positionView": {
+            "type": "boolean"
+          },
+          "positionCreate": {
+            "type": "boolean"
+          },
+          "positionEdit": {
+            "type": "boolean"
+          },
+          "positionDelete": {
+            "type": "boolean"
+          },
+          "benefitView": {
+            "type": "boolean"
+          },
+          "benefitEdit": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "announcementView",
+          "announcementCreate",
+          "announcementEdit",
+          "announcementDelete",
+          "positionView",
+          "positionCreate",
+          "positionEdit",
+          "positionDelete",
+          "benefitView",
+          "benefitEdit"
+        ],
+        "additionalProperties": false,
+        "type": "object"
+      }
+    }
+  },
+  "tags": []
+}

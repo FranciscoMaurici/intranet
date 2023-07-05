@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "noEmit": true,
+    "types": ["cypress"]
+  },
+  "exclude": ["node_modules"]
+}

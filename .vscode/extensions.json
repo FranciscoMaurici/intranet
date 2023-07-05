@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "alexkrechik.cucumberautocomplete",
+        "DavidAnson.vscode-markdownlint",
+        "unifiedjs.vscode-mdx",
+        "usernamehw.errorlens"
+    ]
+}

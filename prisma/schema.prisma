@@ -1,0 +1,471 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Announcement {
+  id                                      Int                    @id @default(autoincrement())
+  user_id                                 Int                    @db.UnsignedInt
+  last_updated_by                         Int                    @db.UnsignedInt
+  content                                 String                 @db.Text
+  status                                  Boolean                @default(true)
+  created_at                              DateTime               @default(now()) @db.DateTime(0)
+  updated_at                              DateTime               @default(now()) @updatedAt @db.DateTime(0)
+  user_announcement_last_updated_byTouser User                   @relation("announcement_last_updated_byTouser", fields: [last_updated_by], references: [id], onUpdate: Restrict, map: "announcement_last_updated_by_FK")
+  user                                    User                   @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "users_email_FK")
+  comment                                 Comment[]
+  reaction_announcement                   ReactionAnnouncement[]
+
+  @@index([user_id], map: "announcement_user_id_FK")
+  @@index([last_updated_by], map: "announcement_last_updated_by_FK")
+  @@map("announcement")
+}
+
+model User {
+  id                                                   Int                    @id @default(autoincrement()) @db.UnsignedInt
+  email                                                String                 @unique(map: "email") @db.VarChar(250)
+  name                                                 String                 @db.VarChar(250)
+  first_name                                           String?                @db.VarChar(250)
+  middle_name                                          String?                @db.VarChar(250)
+  last_name                                            String?                @db.VarChar(50)
+  country                                              String?                @db.VarChar(60)
+  location_code                                        String                 @default("") @db.VarChar(10)
+  birth_date                                           DateTime?              @db.Date
+  hire_date                                            DateTime?              @db.Date
+  job_title_id                                         Int?                   @db.UnsignedTinyInt
+  department_id                                        Int?                   @db.UnsignedTinyInt
+  worker_id                                            String                 @default("") @db.Char(9)
+  associate_id                                         String                 @default("") @db.Char(16)
+  reports_to                                           String                 @default("") @db.VarChar(250)
+  avatar                                               String                 @db.VarChar(250)
+  avatar_file                                          Bytes?                 @db.Blob
+  status                                               Boolean                @default(true)
+  updated_at                                           DateTime               @default(now()) @updatedAt @db.DateTime(0)
+  created_at                                           DateTime               @default(now()) @db.DateTime(0)
+  announcement_announcement_last_updated_byTouser      Announcement[]         @relation("announcement_last_updated_byTouser")
+  announcements                                        Announcement[]
+  comment                                              Comment[]
+  reaction_announcement                                ReactionAnnouncement[]
+  reaction_comment                                     ReactionComment[]
+  tech_interview_tech_interview_interviewer_idTouser   TechInterview[]        @relation("tech_interview_interviewer_idTouser")
+  tech_interview_tech_interview_recruiter_idTouser     TechInterview[]        @relation("tech_interview_recruiter_idTouser")
+  tech_interview_tech_interview_stack_manager_idTouser TechInterview[]        @relation("tech_interview_stack_manager_idTouser")
+  department                                           Department?            @relation(fields: [department_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "user_department_FK")
+  jobTitle                                             JobTitle?              @relation(fields: [job_title_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "user_job_title_FK")
+  modulePermission                                     UserModulePermission[]
+  WorkersUpdateDates                                   WorkersUpdateDates[]
+
+  @@index([job_title_id], map: "user_job_title_FK")
+  @@index([department_id], map: "user_department_FK")
+  @@map("user")
+}
+
+model Position {
+  id                Int             @id @default(autoincrement()) @db.UnsignedInt
+  bullhorn_id       Int             @unique(map: "position_bullhorn_id_unique_key") @db.UnsignedInt
+  position_skill_id Int             @db.UnsignedInt
+  client_id         Int             @db.UnsignedInt
+  title             String          @default("") @db.VarChar(100)
+  job_description   String          @default(dbgenerated("(_utf8mb4\\'\\')")) @db.Text
+  requirements      String          @default(dbgenerated("(_utf8mb4\\'\\')")) @db.Text
+  status            Boolean         @default(true)
+  created_at        DateTime        @default(now()) @db.DateTime(0)
+  updated_at        DateTime        @default(now()) @updatedAt @db.DateTime(0)
+  client            Client          @relation(fields: [client_id], references: [id], onUpdate: Restrict, map: "position_client_FK")
+  position_skill    PositionSkill   @relation(fields: [position_skill_id], references: [id], onUpdate: Restrict, map: "position_position_skill_FK")
+  tech_interview    TechInterview[]
+
+  @@index([client_id], map: "position_client_FK")
+  @@index([position_skill_id], map: "position_position_skill_FK")
+  @@map("position")
+}
+
+model Benefit {
+  id         Int      @id @unique(map: "benefit_id_UNIQUE") @default(autoincrement())
+  title      String   @db.VarChar(45)
+  content    String   @db.LongText
+  location   String   @db.VarChar(3)
+  created_at DateTime @db.DateTime(0)
+  updated_at DateTime @db.DateTime(0)
+
+  @@map("benefit")
+}
+
+model ActionPermission {
+  id          Int                    @id @default(autoincrement())
+  description String                 @db.VarChar(250)
+  constant    String                 @unique(map: "constant") @db.VarChar(50)
+  updated_at  DateTime               @default(now()) @db.Timestamp(0)
+  created_at  DateTime               @default(now()) @db.Timestamp(0)
+  permissions UserModulePermission[]
+
+  @@map("action_permission")
+}
+
+model Module {
+  id          Int                    @id @default(autoincrement())
+  description String                 @db.VarChar(250)
+  constant    String                 @unique(map: "constant") @db.VarChar(50)
+  path        String                 @db.VarChar(100)
+  menu        String                 @db.VarChar(100)
+  updated_at  DateTime               @default(now()) @db.Timestamp(0)
+  created_at  DateTime               @default(now()) @db.Timestamp(0)
+  permissions UserModulePermission[]
+
+  @@map("module")
+}
+
+model UserModulePermission {
+  id                   Int              @id @default(autoincrement()) @db.UnsignedInt
+  module_id            Int
+  action_permission_id Int
+  user_id              Int              @db.UnsignedInt
+  status               Boolean          @default(true)
+  updated_at           DateTime         @default(now()) @db.Timestamp(0)
+  created_at           DateTime         @default(now()) @db.Timestamp(0)
+  actionPermission     ActionPermission @relation(fields: [action_permission_id], references: [id], map: "action_permission_module_FK")
+  module               Module           @relation(fields: [module_id], references: [id], map: "user_module_permission_module_FK")
+  user                 User             @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "user_module_permission_user_FK")
+
+  @@unique([module_id, action_permission_id, user_id], map: "user_module_permission_module_id_action_id_user_id_key")
+  @@index([action_permission_id], map: "action_permission_module_FK")
+  @@index([module_id], map: "user_module_permission_module_FK")
+  @@index([user_id], map: "user_module_permission_user_FK")
+  @@map("user_module_permission")
+}
+
+model JobTitle {
+  id         Int      @id @default(autoincrement()) @db.UnsignedTinyInt
+  name       String   @db.VarChar(250)
+  status     Boolean  @default(true)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+  user       User[]
+
+  @@map("job_title")
+}
+
+model Department {
+  id         Int      @id @default(autoincrement()) @db.UnsignedTinyInt
+  name       String   @db.VarChar(250)
+  status     Boolean  @default(true)
+  created_at DateTime @default(now()) @db.DateTime(0)
+  updated_at DateTime @default(now()) @db.DateTime(0)
+  stack      Stack[]
+  user       User[]
+
+  @@map("department")
+}
+
+model LearningPath {
+  id           Int       @id @default(autoincrement()) @db.UnsignedSmallInt
+  stack_id     Int       @db.UnsignedTinyInt
+  seniority_id Int       @db.UnsignedTinyInt
+  name         String    @db.VarChar(250)
+  url          String    @db.VarChar(250)
+  description  String    @db.Text
+  playlist     String    @db.VarChar(250)
+  status       Boolean   @default(true)
+  created_at   DateTime  @default(now()) @db.DateTime(0)
+  updated_at   DateTime  @default(now()) @db.DateTime(0)
+  seniority    Seniority @relation(fields: [seniority_id], references: [id], onUpdate: Restrict, map: "learning_path_seniority_FK")
+  stack        Stack     @relation(fields: [stack_id], references: [id], onUpdate: Restrict, map: "learning_path_stack_FK")
+
+  @@index([seniority_id], map: "learning_path_seniority_FK")
+  @@index([stack_id], map: "learning_path_stack_FK")
+  @@map("learning_path")
+}
+
+model Seniority {
+  id                                                                    Int             @id @default(autoincrement()) @db.UnsignedTinyInt
+  name                                                                  String          @db.VarChar(250)
+  status                                                                Boolean         @default(true)
+  created_at                                                            DateTime        @default(now()) @db.DateTime(0)
+  updated_at                                                            DateTime        @default(now()) @db.DateTime(0)
+  learning_path                                                         LearningPath[]
+  position_skill_position_skill_primary_skill_seniority_idToseniority   PositionSkill[] @relation("position_skill_primary_skill_seniority_idToseniority")
+  position_skill_position_skill_secondary_skill_seniority_idToseniority PositionSkill[] @relation("position_skill_secondary_skill_seniority_idToseniority")
+
+  @@map("seniority")
+}
+
+model Stack {
+  id            Int            @id @default(autoincrement()) @db.UnsignedTinyInt
+  name          String         @db.VarChar(250)
+  department_id Int            @db.UnsignedTinyInt
+  status        Boolean        @default(true)
+  created_at    DateTime       @default(now()) @db.DateTime(0)
+  updated_at    DateTime       @default(now()) @db.DateTime(0)
+  learning_path LearningPath[]
+  skill         Skill[]
+  department    Department     @relation(fields: [department_id], references: [id], onUpdate: Restrict, map: "stack_department_FK")
+
+  @@index([department_id], map: "stack_department_FK")
+  @@map("stack")
+}
+
+model Comment {
+  id               Int               @id @default(autoincrement())
+  announcement_id  Int
+  user_id          Int               @db.UnsignedInt
+  content          String            @db.VarChar(250)
+  updated_at       DateTime          @default(now()) @db.DateTime(0)
+  created_at       DateTime          @default(now()) @db.DateTime(0)
+  status           Boolean           @default(true)
+  announcement     Announcement      @relation(fields: [announcement_id], references: [id], map: "comment_announcement_FK")
+  user             User              @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "comment_user_FK")
+  reaction_comment ReactionComment[]
+
+  @@index([announcement_id], map: "comment_announcement_FK")
+  @@index([user_id], map: "comment_user_FK")
+  @@map("comment")
+}
+
+model Reaction {
+  id                    Int                    @id @default(autoincrement())
+  name                  String                 @db.VarChar(250)
+  icon                  String                 @db.VarChar(250)
+  updated_at            DateTime               @default(now()) @db.DateTime(0)
+  created_at            DateTime               @default(now()) @db.DateTime(0)
+  status                Boolean                @default(true)
+  reaction_announcement ReactionAnnouncement[]
+  reaction_comment      ReactionComment[]
+
+  @@map("reaction")
+}
+
+model ReactionAnnouncement {
+  id              Int          @id @default(autoincrement())
+  reaction_id     Int
+  announcement_id Int
+  user_id         Int          @db.UnsignedInt
+  updated_at      DateTime     @default(now()) @db.DateTime(0)
+  created_at      DateTime     @default(now()) @db.DateTime(0)
+  status          Boolean      @default(true)
+  announcement    Announcement @relation(fields: [announcement_id], references: [id], map: "reaction_announcement_announcement_FK")
+  reaction        Reaction     @relation(fields: [reaction_id], references: [id], map: "reaction_announcement_reaction_FK")
+  user            User         @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "reaction_announcement_user_FK")
+
+  @@index([announcement_id], map: "reaction_announcement_announcement_FK")
+  @@index([reaction_id], map: "reaction_announcement_reaction_FK")
+  @@index([user_id], map: "reaction_announcement_user_FK")
+  @@map("reaction_announcement")
+}
+
+model ReactionComment {
+  id          Int      @id @default(autoincrement())
+  reaction_id Int
+  comment_id  Int
+  user_id     Int      @db.UnsignedInt
+  updated_at  DateTime @default(now()) @db.DateTime(0)
+  created_at  DateTime @default(now()) @db.DateTime(0)
+  status      Boolean  @default(true)
+  comment     Comment  @relation(fields: [comment_id], references: [id], map: "reaction_comment_comment_FK")
+  reaction    Reaction @relation(fields: [reaction_id], references: [id], map: "reaction_comment_reaction_FK")
+  user        User     @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "reaction_comment_user_FK")
+
+  @@index([comment_id], map: "reaction_comment_comment_FK")
+  @@index([reaction_id], map: "reaction_comment_reaction_FK")
+  @@index([user_id], map: "reaction_comment_user_FK")
+  @@map("reaction_comment")
+}
+
+model WorkersUpdateDates {
+  id          Int      @id @default(autoincrement())
+  started_at  DateTime @db.DateTime(0)
+  finished_at DateTime @default(now()) @db.DateTime(0)
+  executed_by Int      @db.UnsignedInt
+  user        User     @relation(fields: [executed_by], references: [id], onUpdate: Restrict, map: "fk_workers_update_dates_executed_by")
+
+  @@index([executed_by], map: "fk_workers_update_dates_executed_by")
+  @@map("workers_update_dates")
+}
+
+model Handbook {
+  id                    Int        @id @default(autoincrement()) @db.UnsignedSmallInt
+  title                 String     @db.VarChar(100)
+  slug                  String     @unique(map: "handbook_slug_UN") @db.VarChar(50)
+  parent_id             Int?       @db.UnsignedSmallInt
+  level                 Int?       @db.TinyInt
+  order                 Int?       @db.UnsignedTinyInt
+  menu_index            String?    @db.VarChar(10)
+  is_full_article       Boolean
+  use_title_on_homepage Boolean
+  homepage_text         String?    @db.Text
+  full_article_content  String?    @db.Text
+  status                Boolean    @default(true)
+  created_at            DateTime   @default(now()) @db.DateTime(0)
+  updated_at            DateTime   @default(now()) @db.DateTime(0)
+  handbook              Handbook?  @relation("handbookTohandbook", fields: [parent_id], references: [id], onDelete: Restrict, map: "handbook_handbook_FK")
+  other_handbook        Handbook[] @relation("handbookTohandbook")
+
+  @@index([parent_id], map: "handbook_menu_handbook_menu_FK")
+  @@map("handbook")
+}
+
+model Candidate {
+  id                   Int                   @id @default(autoincrement()) @db.UnsignedInt
+  first_name           String                @db.TinyText
+  last_name            String                @db.TinyText
+  email                String                @db.TinyText
+  country_id           Int                   @db.UnsignedTinyInt
+  english_level        String                @default("") @db.VarChar(100)
+  screening_feedback   String                @default(dbgenerated("(_utf8mb4\\'\\')")) @db.Text
+  status               Boolean               @default(true)
+  created_at           DateTime              @default(now()) @db.DateTime(0)
+  updated_at           DateTime              @default(now()) @db.DateTime(0)
+  country              Country               @relation(fields: [country_id], references: [id], onUpdate: Restrict, map: "candidate_country_id_FK")
+  candidate_attachment CandidateAttachment[]
+  tech_interview       TechInterview[]
+
+  @@index([country_id], map: "candidate_country_id_FK")
+  @@map("candidate")
+}
+
+model Client {
+  id         Int        @id @default(autoincrement()) @db.UnsignedInt
+  name       String     @db.TinyText
+  status     Boolean    @default(true)
+  created_at DateTime   @default(now()) @db.DateTime(0)
+  updated_at DateTime   @default(now()) @db.DateTime(0)
+  position   Position[]
+
+  @@map("client")
+}
+
+model TechInterview {
+  id                                         Int       @id @default(autoincrement()) @db.UnsignedInt
+  interview_date                             DateTime? @db.DateTime(0)
+  recruiter_id                               Int       @db.UnsignedInt
+  candidate_id                               Int       @db.UnsignedInt
+  position_id                                Int       @db.UnsignedInt
+  interviewer_id                             Int?      @db.UnsignedInt
+  stack_manager_id                           Int?      @db.UnsignedInt
+  is_approved                                Boolean?
+  comments                                   String    @default("") @db.VarChar(255)
+  status                                     Boolean   @default(true)
+  created_at                                 DateTime  @default(now()) @db.DateTime(0)
+  updated_at                                 DateTime  @default(now()) @db.DateTime(0)
+  candidate                                  Candidate @relation(fields: [candidate_id], references: [id], onUpdate: Restrict, map: "tech_interview_candidate_FK")
+  user_tech_interview_interviewer_idTouser   User?     @relation("tech_interview_interviewer_idTouser", fields: [interviewer_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "tech_interview_interviewer_id_FK")
+  position                                   Position  @relation(fields: [position_id], references: [id], onUpdate: Restrict, map: "tech_interview_position_FK")
+  user_tech_interview_recruiter_idTouser     User      @relation("tech_interview_recruiter_idTouser", fields: [recruiter_id], references: [id], onUpdate: Restrict, map: "tech_interview_recruiter_id_FK")
+  user_tech_interview_stack_manager_idTouser User?     @relation("tech_interview_stack_manager_idTouser", fields: [stack_manager_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "tech_interview_stack_manager_id_FK")
+
+  @@index([candidate_id], map: "tech_interview_candidate_FK")
+  @@index([position_id], map: "tech_interview_opportunity_FK")
+  @@index([interviewer_id], map: "tech_interview_interviewer_id_FK")
+  @@index([recruiter_id], map: "tech_interview_recruiter_id_FK")
+  @@index([stack_manager_id], map: "tech_interview_stack_manager_id_FK")
+  @@map("tech_interview")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model CandidateAttachment {
+  id           Int                      @id @default(autoincrement()) @db.UnsignedInt
+  candidate_id Int                      @db.UnsignedInt
+  url          String                   @db.VarChar(100)
+  type         CandidateAttachmentType?
+  status       Boolean                  @default(true)
+  created_at   DateTime                 @default(now()) @db.DateTime(0)
+  updated_at   DateTime                 @default(now()) @db.DateTime(0)
+  candidate    Candidate                @relation(fields: [candidate_id], references: [id], onUpdate: Restrict, map: "candidate_attachment_candidate_FK")
+
+  @@index([candidate_id], map: "candidate_attachment_candidate_FK")
+  @@map("candidate_attachment")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Country {
+  id        Int         @id @default(autoincrement()) @db.UnsignedTinyInt
+  name      String      @db.VarChar(60)
+  alpha2    String      @unique(map: "country_alpha2_UN") @db.Char(2)
+  alpha3    String      @unique(map: "country_alpha3_UN") @db.Char(3)
+  candidate Candidate[]
+
+  @@map("country")
+}
+
+model OpenPosition {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(100)
+  client      String   @db.VarChar(100)
+  openings    Int
+  description String   @db.Text
+  position_id String?  @db.VarChar(130)
+  is_open     Boolean  @default(true)
+  created_at  DateTime @default(now()) @db.DateTime(0)
+  updated_at  DateTime @default(now()) @db.DateTime(0)
+
+  @@map("position_open")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model PositionSkill {
+  id                                                               Int        @id @default(autoincrement()) @db.UnsignedInt
+  name                                                             String     @default("") @db.VarChar(100)
+  primary_skill_id                                                 Int        @db.UnsignedSmallInt
+  primary_skill_seniority_id                                       Int        @db.UnsignedTinyInt
+  secondary_skill_id                                               Int?       @db.UnsignedSmallInt
+  secondary_skill_seniority_id                                     Int?       @db.UnsignedTinyInt
+  is_tech_lead                                                     Boolean    @default(false)
+  status                                                           Boolean    @default(true)
+  created_at                                                       DateTime   @default(now()) @db.DateTime(0)
+  updated_at                                                       DateTime   @default(now()) @db.DateTime(0)
+  position                                                         Position[]
+  skill_position_skill_primary_skill_idToskill                     Skill      @relation("position_skill_primary_skill_idToskill", fields: [primary_skill_id], references: [id], onUpdate: Restrict, map: "position_skill_primary_skill_FK")
+  seniority_position_skill_primary_skill_seniority_idToseniority   Seniority  @relation("position_skill_primary_skill_seniority_idToseniority", fields: [primary_skill_seniority_id], references: [id], onUpdate: Restrict, map: "position_skill_primary_skill_seniority_FK")
+  skill_position_skill_secondary_skill_idToskill                   Skill?     @relation("position_skill_secondary_skill_idToskill", fields: [secondary_skill_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "position_skill_secondary_skill_FK")
+  seniority_position_skill_secondary_skill_seniority_idToseniority Seniority? @relation("position_skill_secondary_skill_seniority_idToseniority", fields: [secondary_skill_seniority_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "position_skill_secondary_skill_seniority_FK")
+
+  @@unique([primary_skill_id, primary_skill_seniority_id, secondary_skill_id, secondary_skill_seniority_id, is_tech_lead], map: "position_skill_secondary_unique_key")
+  @@index([primary_skill_id], map: "position_skill_primary_skill_FK")
+  @@index([primary_skill_seniority_id], map: "position_skill_primary_skill_seniority_FK")
+  @@index([secondary_skill_id], map: "position_skill_secondary_skill_FK")
+  @@index([secondary_skill_seniority_id], map: "position_skill_secondary_skill_seniority_FK")
+  @@map("position_skill")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Skill {
+  id                                                      Int             @id @default(autoincrement()) @db.UnsignedSmallInt
+  name                                                    String          @db.VarChar(100)
+  stack_id                                                Int?            @db.UnsignedTinyInt
+  status                                                  Boolean         @default(true)
+  created_at                                              DateTime        @default(now()) @db.DateTime(0)
+  updated_at                                              DateTime        @default(now()) @db.DateTime(0)
+  position_skill_position_skill_primary_skill_idToskill   PositionSkill[] @relation("position_skill_primary_skill_idToskill")
+  position_skill_position_skill_secondary_skill_idToskill PositionSkill[] @relation("position_skill_secondary_skill_idToskill")
+  stack                                                   Stack?          @relation(fields: [stack_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "skill_stack_id_FK")
+
+  @@index([stack_id], map: "skill_stack_id_FK")
+  @@map("skill")
+}
+
+view Celebration {
+  id               Int     @unique @default(0) @db.UnsignedInt
+  email            String  @db.VarChar(250)
+  name             String  @db.VarChar(250)
+  job_title        String  @default("") @db.VarChar(250)
+  avatar           String  @db.VarChar(250)
+  avatar_file      Bytes?  @db.Blob
+  birth_date_month Int?
+  birth_date_day   Int?
+  hire_date_month  Int?
+  hire_date_day    Int?
+  hire_date_year   Int?
+  years_difference BigInt?
+
+  @@map("celebration")
+}
+
+enum CandidateAttachmentType {
+  cv
+  coderbyte
+  other
+}

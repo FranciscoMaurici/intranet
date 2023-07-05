@@ -1,0 +1,14 @@
+FROM cypress/browsers
+
+LABEL maintainer="carlos.lima@distillery.com"
+
+ADD . /data
+WORKDIR /data
+RUN yarn install
+RUN yarn lint
+RUN yarn type-check
+RUN yarn test:ci
+RUN yarn build
+EXPOSE 3000
+
+ENTRYPOINT ["/bin/sh", "-c" , "node DevOps/gitlab_ci/index.js && yarn prisma db push && yarn prisma db seed && yarn cy:server:ci"]

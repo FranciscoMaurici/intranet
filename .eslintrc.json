@@ -1,0 +1,152 @@
+{
+  // https://eslint.org/docs/user-guide/configuring#specifying-environments
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true,
+    "jest": true
+  },
+  // https://github.com/babel/babel-eslint
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "simple-import-sort",
+    "import",
+    "markdown"
+  ],
+  "overrides": [
+    {
+      "files": ["*.stories.@(js|jsx|ts|tsx)"]
+    },
+    {
+      "files": ["**/*.md"],
+      "extends": "plugin:markdown/recommended"
+    },
+    {
+      "files": ["*.mdx"],
+      "extends": "plugin:mdx/recommended"
+    }
+  ],
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "arrow-body-style": ["error", "as-needed"],
+    "prefer-arrow-callback": "error",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".tsx", "mdx"]
+      }
+    ],
+    "import/extensions": 0,
+    "import/no-named-as-default": 0,
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": [
+      0,
+      "always",
+      {
+        "arraysInObjects": false,
+        "objectsInObjects": false
+      }
+    ],
+    "linebreak-style": 0,
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "react/react-in-jsx-scope": 0,
+    "array-bracket-newline": [
+      "error",
+      {
+        "multiline": true
+      }
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "never",
+      {
+        "objectsInArrays": false
+      }
+    ],
+    "arrow-parens": ["error", "as-needed"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "strict": 0,
+    "react/jsx-boolean-value": ["warn", "never"],
+    "no-undef": "off",
+    "react/jsx-closing-bracket-location": [1, "line-aligned"],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // Packages `react` related packages come first.
+          ["^react", "^@?\\w"],
+          // Internal packages.
+          ["^src"],
+          [
+            "^@(components|hooks|slices|tstypes|app|utils|prisma|data|theme|controllers)(/.*|$)"
+          ],
+          // Side effect imports.
+          ["^\\u0000"],
+          // Parent imports. Put `..` last.
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          // Other relative imports. Put same-folder imports and `.` last.
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // Style imports.
+          ["^.+\\.?(css)$"]
+        ]
+      }
+    ],
+    "sort-imports": 0, // disables eslint's default sort imports rule
+    "import/first": "error", // moves all imports to the top of the file
+    "import/newline-after-import": "error", // adds newline after every import
+    "import/no-duplicates": "error" // auto fixes duplicate import lines
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./"
+      },
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    },
+    // MDX
+    "mdx/code-blocks": true
+  },
+  "extends": [
+    // https://eslint.org/docs/rules/
+    "eslint:recommended",
+    // https://github.com/yannickcr/eslint-plugin-react#recommended
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    // https://github.com/benmosher/eslint-plugin-import
+    "plugin:import/recommended",
+    "plugin:prettier/recommended",
+    "plugin:@next/next/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended",
+    // https://github.com/mdx-js/eslint-mdx/tree/master/packages/eslint-plugin-mdx
+    "plugin:mdx/recommended",
+    // https://github.com/eslint/eslint-plugin-markdown
+    "plugin:markdown/recommended"
+  ]
+}

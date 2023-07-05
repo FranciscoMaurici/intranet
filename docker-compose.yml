@@ -1,0 +1,36 @@
+﻿version: '3.3'
+
+services:
+  mysql:
+    image: mysql:8.0.30
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: intranet_dev
+      MYSQL_USER: intranet_usr_dev
+      MYSQL_PASSWORD: 9GkaWYF73pfFspficAdv6r8zdeaE3g
+    ports:
+      - '3306:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.ci
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: 'mysql://intranet_usr_dev:9GkaWYF73pfFspficAdv6r8zdeaE3g@mysql:3306/intranet_dev'
+      DOCKER_INSTANCE: 'true'
+      NEXT_QA_ACCOUNT_EMAILS: 'hrbp_intratest_user@distillery.com,rec_intratest_user@distillery.com,sysadmin_intratest_user@distillery.com'
+      NEXT_QA_ACCOUNT_PASSWORD: '@Youcandoit22'
+      NEXTAUTH_SECRET: '2b5bleIe/axMD7GbQg+2DmiHV2DH7nYXT4aMSXMalkI='
+      NEXTAUTH_URL: 'http://localhost:3000'
+      NEXT_PUBLIC_GOOGLE_GTM: 'G-M29NMEPN4Z'
+
+volumes:
+  db-data:
+

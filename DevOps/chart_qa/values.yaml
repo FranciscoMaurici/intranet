@@ -1,0 +1,100 @@
+# Default values for nextgen-vivopoint-api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: registry.gitlab.com/distillery/internal-projects/intranet
+  pullPolicy: Always
+  tag: "qa"
+
+imagePullSecrets: [{ name: gitlab }]
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+  hosts:
+    - host: qa.intranet.distillery.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: sandbox-api-tls
+      hosts:
+        - qa.intranet.distillery.com
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+env:
+  secret:
+    DATABASE_URL: "mysql://intranet_usr_qa:9GkaWYF73pfFspficAdv6r8zdeaE3g@db-mysql:3306/intranet_qa?schema=&pool_timeout=180"
+    NEXTAUTH_SECRET: "R83Xr4gQ4/itaEpyHnDTHcxZ8ELlKotlDTgDOcUA35I="
+    GOOGLE_CLIENT_ID: "58068281427-09ig1bc2qp68atuoqp6qvcr7ujph1fea.apps.googleusercontent.com"
+    GOOGLE_CLIENT_SECRET: "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"
+    NEXTAUTH_URL: "https://qa.intranet.distillery.com"
+    NEXT_PUBLIC_TRANSLOADIT_TEMPLATE_ID: "4a7659115705483f9ec2503065370262"
+    NEXT_PUBLIC_TRANSLOADIT_KEY: "263e9f10467e42d5b32f3df5a9fe6a9d"
+    NEXT_QA_ACCOUNT_EMAILS: "hrbp_intratest_user@distillery.com,rec_intratest_user@distillery.com,sysadmin_intratest_user@distillery.com"
+    NEXT_QA_ACCOUNT_PASSWORD: "@Youcandoit22"
+    NEXT_PUBLIC_GOOGLE_GTM: "G-85NJEGQW3Z"
+    NEXT_PUBLIC_ENV: "qa"
+    ADP_CLIENT_SECRET: "775f341a-a309-4ec5-ae74-1314a0744cc2"
+    ADP_CLIENT_ID: "308cc3fb-3f4c-480e-8a56-e3fa829db6dc"
+    ADP_KEY: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ3d2M1JQdGxIdjBObTUKa0R1N29vbWZ6WW1rT2gyNW0xT2wzS0x4U25TM1pzTmw5elJSTXd6OFZLeU9HdjRIczZxZjR6MFk2N3c0NHNKcwppWWZpaWV1MHlRUlZhTlBlR0pGanFsRGpNZFNKVFZFc3l3Q0EwUmJQNzB6ME9vcHNWeG9YQlF5Mk9IeDU3aklvCjBoSmR5TUk2K3VPVy9yOXlpQlFLbFNXVHdwTHRFUXBrWUdySnN1NnZtVUVUS3pPR2lXVXRMWUN2WHJYQ0huYkkKUFBBSWcwdDJQL3ZMeVJ1UGMyQWMvTTZIOWlLWW1pQXNMdUh0eXp4WUJXMHBmRVd0VjFWTGFtcVRqUi9RcUJVSQp4SzRCbGswZEZ3WlJEWWFEM1dDOWhUYnhMUE9mUXpMSE9vVkRoNmluNnRaM2QrZjhFMjNkbnFmekh3YzFpM3hZCkZvak8rTjNwQWdNQkFBRUNnZ0VBY3Y4ZUhmN3hzS2FpQWlubHMxODlTOHZmRWdyOTdCVXpoMmJXWFVla1NPK0QKa29RVWRnQlJJcHUwNllDR1oxeHVWemp5TjVTcEVobjNoY2Exc3A4cHpLWTlPNVRJeEdnWHNGRFA4QUlyMW1tSAp0eTBkVnJLenRQWnRpem5MZGxIMWw2U2hjSzJ2ejJVN0hYUVFueFJQeXpBUmc5eWJrMWtXTVF4NU5ub1NQa3NUCkFONndFNlc2YW1FV29PbnZTRXd1dUVyV2thQ09BNCtIaUdqTHVERE0vdUxnR2QxYlNqdHQ4SSs1bzVQR1ZTeHgKY2x4NFB3d2tRNjZHcHQ2NHhacGh2b3JTcVc1bEpQQktWT2xlRWliSzU0WHlHV1FiQVE5ZFJPc0wraEJmZXRBNApTdlZjMS9sd0N1S1lTMGdSeHdFQVNGQWVpSDZ6UW96QnBKN01EWThuUVFLQmdRRGRpSTNpNkErYXhDdE4rRmViClpYVFF0RmtTSTQvaVVXRDFMb0FCbngvc004MmxmTG92cS83YkV3dmI5UUxxdzRNRUl3RUY5ZjNJU1FVbkxYY08KVUpaV1NodjFsV3RQWGt1eVdQb1M5cGZQNG8zazVhb01QOElHbFd0K1RBdllwV0ZKOGZZUWFOREZHSzNISDVqSwpKVlUvYkdwclNBKzlFbXNLZ3hTTDNFM0VMd0tCZ1FETVB5Tm9YQlJtOEZzRkRsWFp1WTROeE5vYkwrNkhKTjRaCm5heXNIOU83TU41UWtKWWtuVXArRE83ZWVrYzJETEUvQWtaN3BZeC9NOThTRkdNcVJhNDRaVHJCNlVmYzBZWVUKZG12ZlhsaFNyeVcvSjIvWHpDbGpFSVFONm1rWDFjUUVKS0NIL0gxbG1VOFpvbWwxN25QNnRMdGFNL1krVUhlTAp3by9FeGxGQlp3S0JnQlN4cnQ5bFloL0k5MnFmS2ovZjZGdWVuVHR1aXdCUExjbDVnSWVtUDZzbTQ2enp5OGlzClBuQmtoUlVVL0NMR0JMVWNOL3BBa21abE84Ly9GVUlIRVNRYVpDWTZ3UDEzQjRjdmZKek00RDJSSWtRaG1CTHcKMmNVWHJDVHVJYVVwUGI5VWxQSFBlTUVRbnhzY3ZuOFRvYlQ5QWF2bjNXQ0NHZkd2Y1BubnFIUU5Bb0dCQU1MegpPUDZ4ZFIvVUoyeXFCRE92TXZIZGhUa1NCU0NsaGdENVNRbDV6NFVLM2dnVUdkdVU3cmRsN05JWjhNS2NWc29ICmgvTVpUd05USllhQ1F5emtHYWptcHJEVDA2M25wNHo4ZzNaTy9RcmU5cTZBRy9ia2ZsUjZQVEZ6SHlDSy8yL2MKN2dVZWNTcDZyTStSQUF4NnIrVUtnUkZXSzZISytIQkVJeW4xQ1RYZEFvR0FNQm5VZllDdzZiMy9vRXpDYnRWYgpRcHdRNlNiR0JLdUh5dXd0bVJnNGpTb2dpT05hUjRCTnZsZzFzcURsU2lCNCszSmkwSDZ6ZmoxRjBQU203QkVuCkd5M3ZkeDBnbVRWdVZVZVljN0hpZXpBM0wwN1pxQm9WdDVKb0xkQWJ2aThkQzNLY0lESy9pcmF0R1V3TUNOU2kKcHVhS1VyOEo0QmVNRFJCRmlNZGVVaFU9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0"
+    ADP_CER: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZZekNDQkV1Z0F3SUJBZ0lSQU1rNW5aRHZia1NIc28rRWpYcENnemN3RFFZSktvWklodmNOQVFFTEJRQXcKZ2NneEN6QUpCZ05WQkFZVEFsVlRNU2d3SmdZRFZRUUtFeDlCZFhSdmJXRjBhV01nUkdGMFlTQlFjbTlqWlhOegphVzVuTENCSmJtTXVNUmN3RlFZRFZRUUxFdzVYWldJZ1ZHbGxjaUJIY205MWNERTFNRE1HQTFVRUN4TXNLRU1wCklESXdNVFlnUVVSUUxDQkpibU11SUMwZ1JtOXlJR0YxZEdodmNtbDZaV1FnZFhObElHOXViSGt4UHpBOUJnTlYKQkFNVE5rRjFkRzl0WVhScFl5QkVZWFJoSUZCeWIyTmxjM05wYm1jZ1FYQndiR2xqWVhScGIyNGdVMlZ5ZG1sagpaWE1nUTBFZ0xTQkhNekFlRncweU16QXpNREl3TURBd01EQmFGdzB5TlRBek1ERXlNelU1TlRsYU1HWXhDekFKCkJnTlZCQXNUQWtsVU1STXdFUVlEVlFRS0V3cEVhWE4wYVd4c1pYSjVNUk13RVFZRFZRUUlFd3BEWVd4cFptOXkKYm1saE1SUXdFZ1lEVlFRSEV3dE1iM01nUVc1blpXeGxjekVYTUJVR0ExVUVBeE1PUkdsemRHbHNiR1Z5ZVNCQgpVRWt3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ3d2M1JQdGxIdjBObTVrRHU3Cm9vbWZ6WW1rT2gyNW0xT2wzS0x4U25TM1pzTmw5elJSTXd6OFZLeU9HdjRIczZxZjR6MFk2N3c0NHNKc2lZZmkKaWV1MHlRUlZhTlBlR0pGanFsRGpNZFNKVFZFc3l3Q0EwUmJQNzB6ME9vcHNWeG9YQlF5Mk9IeDU3aklvMGhKZAp5TUk2K3VPVy9yOXlpQlFLbFNXVHdwTHRFUXBrWUdySnN1NnZtVUVUS3pPR2lXVXRMWUN2WHJYQ0huYklQUEFJCmcwdDJQL3ZMeVJ1UGMyQWMvTTZIOWlLWW1pQXNMdUh0eXp4WUJXMHBmRVd0VjFWTGFtcVRqUi9RcUJVSXhLNEIKbGswZEZ3WlJEWWFEM1dDOWhUYnhMUE9mUXpMSE9vVkRoNmluNnRaM2QrZjhFMjNkbnFmekh3YzFpM3hZRm9qTworTjNwQWdNQkFBR2pnZ0duTUlJQm96QWZCZ05WSFNNRUdEQVdnQlN1WHF3MTRJMFFHVXRKSkNMRHlRUllXeWUyCndqQWRCZ05WSFE0RUZnUVUrY1lZSUw3Nm1UaXZjd0laa3dLbjd4RUhadnd3RGdZRFZSMFBBUUgvQkFRREFnV2cKTUF3R0ExVWRFd0VCL3dRQ01BQXdId1lEVlIwbEJCZ3dGZ1lJS3dZQkJRVUhBd0lHQ2lzR0FRUUJnamNVQWdJdwpQUVlEVlIwZ0JEWXdOREF5QmdrckJnRUVBWU4wREFFd0pUQWpCZ2dyQmdFRkJRY0NBUllYYUhSMGNITTZMeTlqCmNITXVZV1J3TG1OdmJTOURVRk13V1FZRFZSMGZCRkl3VURCT29FeWdTb1pJYUhSMGNEb3ZMMk55YkZkVExtRmsKY0M1amIyMHZRWFYwYjIxaGRHbGpSR0YwWVZCeWIyTmxjM05wYm1kQmNIQnNhV05oZEdsdmJsTmxjblpwWTJWegpRMEV0UnpNdVkzSnNNSUdIQmdnckJnRUZCUWNCQVFSN01Ia3dWQVlJS3dZQkJRVUhNQUtHU0doMGRIQTZMeTlqCmNuUlhVeTVoWkhBdVkyOXRMMEYxZEc5dFlYUnBZMFJoZEdGUWNtOWpaWE56YVc1blFYQndiR2xqWVhScGIyNVQKWlhKMmFXTmxjME5CTFVjekxtTnlkREFoQmdnckJnRUZCUWN3QVlZVmFIUjBjRG92TDI5amMzQlhVeTVoWkhBdQpZMjl0TUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFDOXprNWtvMDlJTytwU3BhVW10STFFMXBuNkhqRCtadHowCkNaQUhVVTlkaG1tVngyQnhtRGFNOURBcDQ5QTNSdnBqbTdvOVdqWExzWDc3Y3hVRDJSS1BxY0VwUHhZaXZIdFoKak5NRkZHOEVHM3B3Z0kxUU5kNHkzNGFITDIwb25XaCtBUFlMREtCWTR1MmxSSnVUY21ucVMvQjdtUXhyL3gwMQordzllVVlkNkJCSnd6ckgxcnp5QnFqR25VTE9uVWsvVXRIcndrQjQzRHBOU1ZLRTBVSWRUUjRKUWZiMVZIeGVDCk0vdXZHU0VxMlQwRkJhSnU5bUFhd0hHWk9qdzZESjN4MW9NUDJKdzVFckNjaU02dngxSnd0NmJOUVcrNEdmZXIKbTdaaHUvSzdubkRXU0JOTzJSUEtPSlNFUksyc01uMWpZeUlGQy81YUljNEJOMmp6RzFQYgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg"
+

@@ -1,0 +1,3415 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Intranet API Documentation",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/users/permissions": {
+      "get": {
+        "tags": ["Permissions"],
+        "summary": "Permissions of the user",
+        "description": "Get a list of permissions that an user can perform in the application. The user needs to be logged in",
+        "responses": {
+          "200": {
+            "description": "Get permissions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "user": {
+                      "id": 3,
+                      "email": "email@distillery.com",
+                      "name": "Name",
+                      "last_name": "Last name",
+                      "country": "Mexico",
+                      "department": null,
+                      "position": null,
+                      "permissions": {
+                        "announcement_view": true,
+                        "announcement_create": true,
+                        "announcement_edit": false,
+                        "announcement_delete": false,
+                        "job_view": true,
+                        "job_create": true,
+                        "job_edit": true,
+                        "job_delete": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error getting permissions"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Permissions"],
+        "summary": "Create user permissions",
+        "description": "Create a user register and its own default permissions",
+        "responses": {
+          "200": {
+            "description": "User permissions created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "user": {
+                      "id": 3,
+                      "email": "email@distillery.com",
+                      "name": "Name",
+                      "last_name": "Last name",
+                      "country": "Mexico",
+                      "department": null,
+                      "position": null,
+                      "permissions": {
+                        "announcement_view": true,
+                        "announcement_create": true,
+                        "announcement_edit": false,
+                        "announcement_delete": false,
+                        "job_view": true,
+                        "job_create": true,
+                        "job_edit": true,
+                        "job_delete": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error creating user permissions"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/announcements": {
+      "get": {
+        "tags": ["Announcements"],
+        "summary": "List of announcements",
+        "description": "Get a list of announcements based on the parameters sent",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Email or part of the email from user who create the announcement",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "example": 1
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Parameter to order the results, you can send different fields to order with their respective order",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "field: asc; field_2: desc"
+          },
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "The number of the page you are currently",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": 3
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The number of results you want by page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": 44
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get announcements",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "data": [
+                      {
+                        "id": 38,
+                        "user_id": 27,
+                        "content": "<p>create a post</p>",
+                        "last_updated_by": 1,
+                        "created_at": "2023-03-06T20:40:39.000Z",
+                        "updated_at": "2023-03-06T20:40:39.000Z",
+                        "status": 1,
+                        "reaction_announcement": [
+                          {
+                            "id": 22,
+                            "reaction": {
+                              "id": 1,
+                              "name": "Like",
+                              "icon": "like.svg"
+                            },
+                            "status": true,
+                            "user": {
+                              "id": 228,
+                              "name": "Gonzalo Castro Revetria",
+                              "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c"
+                            }
+                          },
+                          {
+                            "id": 24,
+                            "reaction": {
+                              "id": 1,
+                              "name": "Like",
+                              "icon": "like.svg"
+                            },
+                            "status": true,
+                            "user": {
+                              "id": 1,
+                              "name": "Luis Portanel",
+                              "avatar": "https://lh3.googleusercontent.com/a/ALm5wu2p3dK-GhaiegnmAlkBVgRt83gBbWg_0-9N64N-=s96-c"
+                            }
+                          },
+                          {
+                            "id": 25,
+                            "reaction": {
+                              "id": 3,
+                              "name": "Love",
+                              "icon": "love.svg"
+                            },
+                            "status": true,
+                            "user": {
+                              "id": 2,
+                              "name": "Beatriz Jimenez Perez",
+                              "avatar": "https://lh3.googleusercontent.com/a/ALm5wu3_xCQmm0ugdPv7iGBzeSlynTB8SzamZeyLPSOU=s96-c"
+                            }
+                          },
+                          {
+                            "id": 26,
+                            "reaction": {
+                              "id": 4,
+                              "name": "Celebrate",
+                              "icon": "celebrate.svg"
+                            },
+                            "status": true,
+                            "user": {
+                              "id": 3,
+                              "name": "Laura Jiménez Ferreira",
+                              "avatar": ""
+                            }
+                          }
+                        ],
+                        "user": {
+                          "id": 27,
+                          "name": "Valentín Ernesto Vidal",
+                          "email": "valentin.vidal@distillery.com",
+                          "avatar": "https://lh3.googleusercontent.com/a/ALm5wu1_sdh0d-gvSyHZ6ozXJjHU-dJanUyukFAAR3RY=s96-c"
+                        },
+                        "comments": [
+                          {
+                            "id": 1,
+                            "content": "This is a test\nwill it work?\nLets see",
+                            "user": {
+                              "id": 1,
+                              "name": "Luis Portanel",
+                              "avatar": "https://lh3.googleusercontent.com/a/ALm5wu2p3dK-GhaiegnmAlkBVgRt83gBbWg_0-9N64N-=s96-c",
+                              "jobTitle": {
+                                "name": "Stack Manager"
+                              }
+                            },
+                            "reaction_comment": [
+                              {
+                                "id": 8,
+                                "reaction": {
+                                  "id": 2,
+                                  "name": "Congratulate",
+                                  "icon": "congratulate.svg"
+                                },
+                                "status": true,
+                                "user": {
+                                  "id": 228,
+                                  "name": "Gonzalo Castro Revetria",
+                                  "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c"
+                                }
+                              }
+                            ],
+                            "created_at": "2023-03-23T08:30:32.000Z",
+                            "reactionsByGroup": {
+                              "congratulate": [
+                                {
+                                  "id": 8,
+                                  "reaction": {
+                                    "id": 2,
+                                    "name": "Congratulate",
+                                    "icon": "congratulate.svg"
+                                  },
+                                  "status": true,
+                                  "user": {
+                                    "id": 228,
+                                    "name": "Gonzalo Castro Revetria",
+                                    "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": 2,
+                            "content": "Testing test\nTesto testar\nasd",
+                            "user": {
+                              "id": 1,
+                              "name": "Luis Portanel",
+                              "avatar": "https://lh3.googleusercontent.com/a/ALm5wu2p3dK-GhaiegnmAlkBVgRt83gBbWg_0-9N64N-=s96-c",
+                              "jobTitle": {
+                                "name": "Stack Manager"
+                              }
+                            },
+                            "reaction_comment": [],
+                            "created_at": "2023-03-23T08:34:13.000Z"
+                          },
+                          {
+                            "id": 3,
+                            "content": "A third comment. This is nice :muscle:",
+                            "user": {
+                              "id": 1,
+                              "name": "Luis Portanel",
+                              "avatar": "https://lh3.googleusercontent.com/a/ALm5wu2p3dK-GhaiegnmAlkBVgRt83gBbWg_0-9N64N-=s96-c",
+                              "jobTitle": {
+                                "name": "Stack Manager"
+                              }
+                            },
+                            "reaction_comment": [],
+                            "created_at": "2023-03-23T08:34:29.000Z"
+                          },
+                          {
+                            "id": 4,
+                            "content": "One last comment",
+                            "user": {
+                              "id": 1,
+                              "name": "Luis Portanel",
+                              "avatar": "https://lh3.googleusercontent.com/a/ALm5wu2p3dK-GhaiegnmAlkBVgRt83gBbWg_0-9N64N-=s96-c",
+                              "jobTitle": {
+                                "name": "Stack Manager"
+                              }
+                            },
+                            "reaction_comment": [],
+                            "created_at": "2023-03-23T08:38:35.000Z"
+                          },
+                          {
+                            "id": 6,
+                            "content": "asdasd",
+                            "user": {
+                              "id": 228,
+                              "name": "Gonzalo Castro Revetria",
+                              "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c",
+                              "jobTitle": {
+                                "name": "React Developer"
+                              }
+                            },
+                            "reaction_comment": [
+                              {
+                                "id": 7,
+                                "reaction": {
+                                  "id": 2,
+                                  "name": "Congratulate",
+                                  "icon": "congratulate.svg"
+                                },
+                                "status": true,
+                                "user": {
+                                  "id": 228,
+                                  "name": "Gonzalo Castro Revetria",
+                                  "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c"
+                                }
+                              }
+                            ],
+                            "created_at": "2023-04-04T15:40:31.000Z",
+                            "reactionsByGroup": {
+                              "congratulate": [
+                                {
+                                  "id": 7,
+                                  "reaction": {
+                                    "id": 2,
+                                    "name": "Congratulate",
+                                    "icon": "congratulate.svg"
+                                  },
+                                  "status": true,
+                                  "user": {
+                                    "id": 228,
+                                    "name": "Gonzalo Castro Revetria",
+                                    "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "id": 7,
+                            "content": "asddasdasdasdasd",
+                            "user": {
+                              "id": 228,
+                              "name": "Gonzalo Castro Revetria",
+                              "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c",
+                              "jobTitle": {
+                                "name": "React Developer"
+                              }
+                            },
+                            "reaction_comment": [],
+                            "created_at": "2023-04-04T17:34:15.000Z"
+                          }
+                        ],
+                        "reactionsByGroup": {
+                          "like": [
+                            {
+                              "id": 22,
+                              "reaction": {
+                                "id": 1,
+                                "name": "Like",
+                                "icon": "like.svg"
+                              },
+                              "status": true,
+                              "user": {
+                                "id": 228,
+                                "name": "Gonzalo Castro Revetria",
+                                "avatar": "https://lh3.googleusercontent.com/a/AEdFTp5zK4i5jWxSmXgmbHyOTDLOIuJxKzqoq5Qut_a5=s96-c"
+                              }
+                            },
+                            {
+                              "id": 24,
+                              "reaction": {
+                                "id": 1,
+                                "name": "Like",
+                                "icon": "like.svg"
+                              },
+                              "status": true,
+                              "user": {
+                                "id": 1,
+                                "name": "Luis Portanel",
+                                "avatar": "https://lh3.googleusercontent.com/a/ALm5wu2p3dK-GhaiegnmAlkBVgRt83gBbWg_0-9N64N-=s96-c"
+                              }
+                            }
+                          ],
+                          "love": [
+                            {
+                              "id": 25,
+                              "reaction": {
+                                "id": 3,
+                                "name": "Love",
+                                "icon": "love.svg"
+                              },
+                              "status": true,
+                              "user": {
+                                "id": 2,
+                                "name": "Beatriz Jimenez Perez",
+                                "avatar": "https://lh3.googleusercontent.com/a/ALm5wu3_xCQmm0ugdPv7iGBzeSlynTB8SzamZeyLPSOU=s96-c"
+                              }
+                            }
+                          ],
+                          "celebrate": [
+                            {
+                              "id": 26,
+                              "reaction": {
+                                "id": 4,
+                                "name": "Celebrate",
+                                "icon": "celebrate.svg"
+                              },
+                              "status": true,
+                              "user": {
+                                "id": 3,
+                                "name": "Laura Jiménez Ferreira",
+                                "avatar": ""
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "pagination": {
+                      "pageNum": 1,
+                      "pageSize": 100,
+                      "total": 35
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error getting an announcement"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Announcements"],
+        "summary": "Create a new announcement",
+        "description": "Creation of a new announcement with the data sent",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "User who is creating the announcement",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": { "user_id": 1 }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The announcement was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 10,
+                    "user_id": 1,
+                    "last_updated_by": 1,
+                    "created_at": "2022-08-17T22:45:43.000Z",
+                    "updated_at": "2022-08-17T22:45:43.000Z",
+                    "status": 1
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error creating an announcement"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/announcements/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Announcement id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": 3
+        }
+      ],
+      "put": {
+        "tags": ["Announcements"],
+        "summary": "Update announcement",
+        "description": "API to update the content of an announcement",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "User email who is creating the announcement",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "user_id": "name.lasName@distillery.com" }
+            }
+          },
+          {
+            "name": "title",
+            "in": "body",
+            "description": "Title of the announcement",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "title": "My awesome announcement" }
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "Announcement content",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": {
+                "description": "This is a fantastic announcement for all the users."
+              }
+            }
+          },
+          {
+            "name": "image",
+            "in": "body",
+            "description": "Url of an image linked to the announcement",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "image": "https://my_server.com/my-image.png" }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The announcement was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 10,
+                    "user_id": 1,
+                    "title": "Updated title",
+                    "description": "Updated description",
+                    "image": "https://example.com/Updated-image.png",
+                    "last_updated_by": 1,
+                    "created_at": "2022-08-17T22:45:43.000Z",
+                    "updated_at": "2022-08-17T22:45:43.000Z",
+                    "isActive": "active"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error updating an announcement"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Announcements"],
+        "summary": "Delete announcement",
+        "description": "API to delete an announcement, this is only a soft delete changing the announcement status",
+        "responses": {
+          "200": {
+            "description": "The announcement was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "Announcement deleted"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error deleting an announcement"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/benefits": {
+      "get": {
+        "tags": ["Benefits"],
+        "summary": "List of benefits",
+        "description": "Get a list of benefits that belongs to the specified category.",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Category that the benefit belongs to.",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Got benefits.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "benefits": [
+                      {
+                        "id": 1,
+                        "category_id": 2,
+                        "title": "Benefit update 4",
+                        "content": "Benefit update 4",
+                        "location": "TST",
+                        "created_at": "2022-09-23T00:00:00.000Z",
+                        "updated_at": "2022-09-28T17:07:32.000Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "General server error on benefits endpoint."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/benefits/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "The identifier of the benefit",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "example": 1
+        }
+      ],
+      "put": {
+        "tags": ["Benefits"],
+        "summary": "Update a specific benefit",
+        "description": "Updates the fields of the benefit.",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "body",
+            "description": "Title of the benefit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Flexibility and remote work"
+            }
+          },
+          {
+            "name": "content",
+            "in": "body",
+            "description": "A description of the benefit",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Get to choose your ideal workspace in full accordance with your productivity preferences"
+            }
+          },
+          {
+            "name": "location",
+            "in": "body",
+            "description": "Place where the benefit is applied",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "Argentina"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The benefit was updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "benefit": {
+                      "benefit_id": 1,
+                      "category_id": 2,
+                      "title": "Benefit update 4",
+                      "content": "Benefit update 4",
+                      "location": "TST",
+                      "created_at": "2022-09-23T00:00:00.000Z",
+                      "updated_at": "2022-09-29T14:44:02.000Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "General server error on benefits endpoint."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/positions": {
+      "get": {
+        "tags": ["Positions"],
+        "summary": "Get all position",
+        "description": "Get a list of positions based on the parameters sent",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Title or part of the title of the position(s) you want to retrieve",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Mobile Developer"
+          },
+          {
+            "name": "client",
+            "in": "query",
+            "description": "Client or part of the client of the position(s) you want to retrieve",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "TapCart"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "Description or part of the description of the position(s) you want to retrieve",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "iOS development experience"
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Parameter to order the results, you can send different fields to order with their respective order",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "field: asc; field_2: desc"
+          },
+          {
+            "name": "pageNum",
+            "in": "query",
+            "description": "The number of the page you are currently",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": 3
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The number of results you want by page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": 44
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get positions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "data": [
+                      {
+                        "id": 1,
+                        "title": "Mobile Developer, Senior",
+                        "client": "TapCart",
+                        "openings": 1,
+                        "description": "- Professional iOS development experience \n- Experience in Swift including state management, and build time configuration \n- Proven track-record developing greenfield products \n- Awareness of performance considerations such as cross-device and size compatibility, components, configuration driven UI, and load-time optimizations \n- Skilled at collaborating and mentoring teammates \n- Scripting, Automation skills are a plus (Jenkins, CircleCI, fastlane, etc \n- Experience leading and collaborating with Android Engineers a plus",
+                        "position_id": null,
+                        "is_open": true,
+                        "created_at": "2022-08-24T00:33:42.000Z",
+                        "updated_at": "2022-08-24T00:33:42.000Z"
+                      }
+                    ],
+                    "pagination": {
+                      "pageNum": 1,
+                      "pageSize": 10,
+                      "total": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error getting positions"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Positions"],
+        "summary": "Create a new position",
+        "description": "Creation of a new position with the data sent",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "body",
+            "description": "Title of the position",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "title": "Mobile Developer, Senior" }
+            }
+          },
+          {
+            "name": "client",
+            "in": "body",
+            "description": "client who is offering the position",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "client": "TapCart" }
+            }
+          },
+          {
+            "name": "openings",
+            "in": "body",
+            "description": "Number of vacancies",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": { "openings": 2 }
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "Description of the position",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "description": "- Professional iOS development experience \n- Experience in Swift including state management, and build time configuration"
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "in": "body",
+            "description": "Position ID from Bull horn",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "position_id": "" }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The position was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 1,
+                    "title": "Mobile Developer, Senior",
+                    "client": "TapCart",
+                    "openings": 1,
+                    "description": "- Professional iOS development experience \n- Experience in Swift including state management, and build time configuration",
+                    "position_id": null,
+                    "is_open": true,
+                    "created_at": "2022-08-24T16:55:35.000Z",
+                    "updated_at": "2022-08-24T16:55:35.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error creating a position"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/positions/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Position id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": 2
+        }
+      ],
+      "put": {
+        "tags": ["Positions"],
+        "summary": "Update position",
+        "description": "API to update the content of a position",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "body",
+            "description": "Title of the position",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "title": "Mobile Developer, Senior" }
+            }
+          },
+          {
+            "name": "client",
+            "in": "body",
+            "description": "client who is offering the position",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "client": "TapCart" }
+            }
+          },
+          {
+            "name": "openings",
+            "in": "body",
+            "description": "Number of vacancies",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": { "openings": 2 }
+            }
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "Description of the position",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": {
+                "description": "- Professional iOS development experience \n- Experience in Swift including state management, and build time configuration"
+              }
+            }
+          },
+          {
+            "name": "position_id",
+            "in": "body",
+            "description": "Position ID from Bull horn",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "position_id": "" }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The position was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 2,
+                    "title": "New updated position",
+                    "client": "New client up",
+                    "openings": 8,
+                    "description": "A description updated",
+                    "position_id": "id_from_hub",
+                    "is_open": true,
+                    "created_at": "2022-08-24T20:14:08.000Z",
+                    "updated_at": "2022-08-28T17:43:39.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error updating a position"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Positions"],
+        "summary": "Delete position",
+        "description": "API to delete a position, this is only a soft delete changing the position status",
+        "responses": {
+          "200": {
+            "description": "The position was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "Position deleted"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error deleting a position"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/comments": {
+      "post": {
+        "tags": ["Comments"],
+        "summary": "Create a new comment",
+        "description": "Creation of a new comment with the data sent",
+        "parameters": [
+          {
+            "name": "announcement_id",
+            "in": "body",
+            "description": "Announcement to which the comment belongs",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": { "announcement_id": 1 }
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "User to which the comment belongs",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": { "user_id": 1 }
+            }
+          },
+          {
+            "name": "content",
+            "in": "body",
+            "description": "Content of the comment",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "content": "This is a comment"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The comment was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 4,
+                    "announcement_id": 1,
+                    "user_id": 228,
+                    "content": "This is a comment",
+                    "updated_at": "2023-03-17T19:54:00.000Z",
+                    "created_at": "2023-03-17T19:54:00.000Z",
+                    "status": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error creating a comment"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/comment/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Comment id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": 2
+        }
+      ],
+      "delete": {
+        "tags": ["Comments"],
+        "summary": "Delete comment",
+        "description": "API to delete a comment, this is only a soft delete changing the comment status",
+        "responses": {
+          "200": {
+            "description": "The comment was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "Comment deleted"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error deleting a comment"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/learning-paths": {
+      "get": {
+        "tags": ["Learning Paths"],
+        "summary": "List of Learning Paths by department",
+        "description": "Get a list of learning paths by department",
+        "responses": {
+          "200": {
+            "description": "Get learning paths",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": [
+                    {
+                      "id": 0,
+                      "name": "Name of the learning path department.",
+                      "description": "Description of the learning path department.",
+                      "stack": [
+                        {
+                          "id": 0,
+                          "name": "Name of the department stack.",
+                          "path": [
+                            {
+                              "id": 0,
+                              "isComplementary": false,
+                              "stack_id": 0,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            },
+                            {
+                              "id": 2,
+                              "isComplementary": false,
+                              "stack_id": 0,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "id": 1,
+                          "name": "Name of the department stack.",
+                          "path": [
+                            {
+                              "id": 2,
+                              "isComplementary": false,
+                              "stack_id": 1,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            },
+                            {
+                              "id": 3,
+                              "isComplementary": false,
+                              "stack_id": 1,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": 0,
+                      "name": "Another Name of the learning path department.",
+                      "description": "Description of the learning path department.",
+                      "stack": [
+                        {
+                          "id": 2,
+                          "name": "Name of the department stack.",
+                          "path": [
+                            {
+                              "id": 4,
+                              "isComplementary": false,
+                              "stack_id": 2,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            },
+                            {
+                              "id": 5,
+                              "isComplementary": false,
+                              "stack_id": 2,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "id": 6,
+                          "name": "Name of the department stack.",
+                          "path": [
+                            {
+                              "id": 5,
+                              "isComplementary": false,
+                              "stack_id": 6,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            },
+                            {
+                              "id": 7,
+                              "isComplementary": false,
+                              "stack_id": 6,
+                              "name": "Name of the stack step",
+                              "url": "url of the stack step",
+                              "description": "Desciption of the stack step",
+                              "playlist": "Playlist of the stack step",
+                              "seniority": {
+                                "name": "Name of the step seniority"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error getting learning paths"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/celebrations": {
+      "get": {
+        "tags": ["Celebrations"],
+        "summary": "List of Celebrations",
+        "description": "Get a list of list of celebrations (anniversaries and birthdays)",
+        "responses": {
+          "200": {
+            "description": "Get anniversaries and birthdays",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "5/16/2023": [
+                      {
+                        "id": 0,
+                        "name": "John Doe",
+                        "job_title": "React Developer",
+                        "avatar": "https://my_server.com/my-image.png",
+                        "avatar_file": null,
+                        "years_difference": 3,
+                        "type": "birthday"
+                      }
+                    ],
+                    "5/17/2023": [
+                      {
+                        "id": 1,
+                        "name": "Juan Sierra",
+                        "job_title": "Angular Developer",
+                        "avatar": "https://my_server.com/my-image2.png",
+                        "avatar_file": null,
+                        "years_difference": 2,
+                        "type": "anniversary"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error getting celebrations"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reactions": {
+      "post": {
+        "tags": ["Reactions"],
+        "summary": "Create a new reaction",
+        "description": "Creation of a new reaction with the submitted data",
+        "parameters": [
+          {
+            "name": "reaction_id",
+            "in": "body",
+            "description": "Reaction id for the reaction to be created",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": { "reaction_id": 1 }
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "body",
+            "description": "User id for the reaction to be created",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "user_id": 1 }
+            }
+          },
+          {
+            "name": "announcement_id",
+            "in": "body",
+            "description": "Announcement id to which the reaction belongs",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": { "announcement_id": 2 }
+            }
+          },
+          {
+            "name": "comment_id",
+            "in": "body",
+            "description": "Comment id to which the reaction belongs",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": {
+                "comment_id": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The reactions was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 3,
+                    "reaction_id": 2,
+                    "comment_id": 1,
+                    "user_id": 228,
+                    "updated_at": "2023-03-30T12:31:58.000Z",
+                    "created_at": "2023-03-30T12:31:58.000Z",
+                    "status": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error creating a reaction"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/reactions/{entity}/{id}": {
+      "parameters": [
+        {
+          "name": "entity",
+          "in": "path",
+          "description": "Entity id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": "announcement"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Position id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": 2
+        }
+      ],
+      "put": {
+        "tags": ["Reactions"],
+        "summary": "Update reaction",
+        "description": "API to update the reaction",
+        "parameters": [
+          {
+            "name": "reaction_id",
+            "in": "body",
+            "description": "Reaction id for the reaction to be updated",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": {
+                "reaction_id": 1
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The reaction was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 3,
+                    "reaction_id": 1,
+                    "comment_id": 1,
+                    "user_id": 228,
+                    "updated_at": "2023-03-30T12:31:58.000Z",
+                    "created_at": "2023-03-30T12:31:58.000Z",
+                    "status": true
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error updating a reaction"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Reactions"],
+        "summary": "Delete reaction",
+        "description": "API to delete a reaction, this is only a soft delete changing the reaction status",
+        "responses": {
+          "200": {
+            "description": "The reaction was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "Reaction deleted"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error deleting a reaction"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/adp/workers": {
+      "get": {
+        "tags": ["Workers"],
+        "summary": "List of workers",
+        "description": "Get a list of Distillery workers from ADP",
+        "parameters": [
+          {
+            "name": "active",
+            "in": "query",
+            "description": "Boolean indicating if should fetch all users or only the active ones. (Defaults to true)",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "example": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workers retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "workers": [
+                      {
+                        "associateID": "G3A92HSWFQXTF1YC",
+                        "workerID": "2ZCVOKA6G",
+                        "email": "juan.sierra@distillery.com",
+                        "preferredFirstName": "Pulga",
+                        "preferredLastName": "Sierra",
+                        "legalFirstName": "Juan",
+                        "legalMiddleName": "Manuel",
+                        "legalLastName": "Sierra",
+                        "birthDate": "0000-05-10",
+                        "hireDate": "2022-03-21"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "General server error on workers endpoint."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/adp/workers/update": {
+      "post": {
+        "tags": ["Workers"],
+        "summary": "Update workers data",
+        "description": "Update the users' table data with the latest ADP workers information",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The users data was updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "The workers' data was successfully updated.",
+                    "updateDate": "2023-04-27T15:38:41.000Z",
+                    "numberOfRowsAffected": "230"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user is not logged in.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "General server error on workers endpoint."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/handbook": {
+      "get": {
+        "tags": ["Handbook"],
+        "summary": "List of handbook items",
+        "description": "Get a list of handbook items",
+        "responses": {
+          "200": {
+            "description": "Get handbook",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": [
+                    {
+                      "id": 1,
+                      "menu_label": "Onboarding Booklet",
+                      "head_title": "Onboarding Booklet",
+                      "h1_title": "Onboarding Booklet",
+                      "title": "Onboarding Booklet",
+                      "subtitle": null,
+                      "order": 2,
+                      "is_article": null,
+                      "parent_id": null,
+                      "slug": "onboarding-booklet",
+                      "status": true,
+                      "created_at": "2023-05-09T18:45:37.000Z",
+                      "updated_at": "2023-05-15T17:31:44.000Z",
+                      "is_external": "0",
+                      "external_url": null,
+                      "short_description": null,
+                      "content": null,
+                      "menu_index": "2",
+                      "weight": "20000",
+                      "level": 0,
+                      "children": [
+                        {
+                          "id": 2,
+                          "menu_label": "Setup instructions",
+                          "head_title": "Setup instructions",
+                          "h1_title": "Setup instructions",
+                          "title": "Setup instructions",
+                          "subtitle": null,
+                          "order": 1,
+                          "is_article": true,
+                          "parent_id": 1,
+                          "slug": "set-up-instructions",
+                          "status": true,
+                          "created_at": "2023-05-09T18:45:37.000Z",
+                          "updated_at": "2023-05-15T17:31:44.000Z",
+                          "is_external": "0",
+                          "external_url": null,
+                          "short_description": "<p class=\"article__paragraph\"><span class=\"article__color-#000000 article__bg-#ffffff\">The onboarding process helps you integrate easily into the Distillery team. For your first day, we share with you some&nbsp;</span><a href=\"/set-up-instructions\" rel=\"noopener noreferrer\" class=\"article-link inner-link article__color-#000000 article__bg-#ffffff\">setup instructions</a><span class=\"article__color-#000000 article__bg-#ffffff\">&nbsp;and a&nbsp;</span><span class=\"article__bg-#ffffff article__color-#172b4d\">checklist that contains all the necessary steps that you need to complete during your first weeks.  This checklist will be sent over to your email address on the first day. </span></p><p class=\"article__paragraph\"><br></p><p class=\"article__paragraph\"><img class=\"article__image\" src=\"https://handbook.distillery.com/api/upload/1672839059396Copia%20de%20CHECKLIST%20ONBOARDING.png\"></p>",
+                          "content": "<h2 class=\"article__h2 title_h2\"><br></h2><h2 class=\"article__h2 title_h2\">EMAIL</h2><p class=\"article__paragraph\"><span class=\"article__bg-transparent\">Once the system administrator has created your corporate mail, you need to set up your email and calendar. Next, we show you how to set up </span>a Distillery signature on your corporate email. There are different versions, according to the position.</p><ul class=\"article__list\"><li class=\"article__list-item\"><span class=\"article__bg-transparent\">Choose Settings/ see all settings&nbsp;</span></li><li class=\"article__list-item\"><span class=\"article__bg-transparent\">Scroll up to the signature field</span></li></ul><p class=\"article__paragraph\"><span class=\"article__bg-transparent article__color-#000000\"><img class=\"article__image\" src=\"https://lh5.googleusercontent.com/PLRDepLsP-naWtg35piARUDZSIuFYfMTdtWzuR4yYuU5IbXAWO6qBq4VkPEt4hn5B0IYW46oBwXEG4scH-wSlyy4OT64IHktcRguiH6PsfXe_LpQWZ4YH3aWgQV96nu8S1a7yFAo9DKoUkSjGNLbExUaPynLTVV_91oH48Tgw-NFRMoEK1vetNFcXWtxjRCOrQFn59DW\" height=\"122\" width=\"567\"> </span></p><ul class=\"article__list\"><li class=\"article__list-item\">Save changes</li></ul><p class=\"article__paragraph\"><br></p><h3 class=\"article__h3 title_h3\"><span class=\"article__color-#000000 article__bg-transparent\">SIGNATURES TYPES (3)</span></h3><h4 class=\"article__h4 title_h4\"><br></h4><p class=\"article__paragraph\"><span class=\"article__color-#000000 article__bg-transparent\">1. SALES TEAM VERSION</span></p><p class=\"article__paragraph article__indent-2\"><strong>John Smith</strong></p><p class=\"article__paragraph article__indent-2\"><strong>Global People Officer</strong></p><p class=\"article__paragraph article__indent-2\"><strong>+1.234.567.8901&nbsp;</strong></p><p class=\"article__paragraph article__indent-2\"><a href=\"https://distillery.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"article-link article-link_external article__color-#1155cc\"><img class=\"article__image\" src=\"https://lh3.googleusercontent.com/EpGID4jmaD_tGyn-Q8V-FVEHFA7aFEhjq1Lpf0dUywwN4zluFd1jMkIrezC72ntxF-EdY1goOmwjWrn4HvJ-EzkIV04kfF6uoAzDp2RVxaA635V868nCyEcgi0pOzqEY9f-3ZeRk\" height=\"22\" width=\"121\"></a></p><p class=\"article__paragraph article__indent-2\"><a href=\"https://distillery.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"article-link article-link_external article__color-#1155cc\">Distillery.com</a></p><p class=\"article__paragraph article__indent-2\"><span class=\"article__color-#000000\">USA</span></p><p class=\"article__paragraph\"><br></p><p class=\"article__paragraph\"><span class=\"article__color-#000000 article__bg-transparent\">2. ACCOUNT MANAGER &amp; PM VERSION</span></p><p class=\"article__paragraph article__indent-2\"><strong class=\"article__color-#000000 article__bg-transparent\">Mary Poppins</strong></p><p class=\"article__paragraph article__indent-2\"><span class=\"article__color-#000000 article__bg-transparent\">Project Management Lead at&nbsp;</span><a href=\"https://distillery.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"article-link article-link_external article__color-#1155cc article__bg-transparent\">Distillery.com</a></p><p class=\"article__paragraph article__indent-2\"><span class=\"article__color-#000000 article__bg-transparent\">+1 (234) 567-8901</span></p><p class=\"article__paragraph\"><br></p><p class=\"article__paragraph\"><span class=\"article__color-#000000 article__bg-transparent\">3. ALL EMPLOYEE'S VERSION</span></p><p class=\"article__paragraph\"><span class=\"article__bg-transparent article__color-#000000\">Currently, we are using a common versión signature:</span></p><p class=\"article__paragraph article__indent-2\"><strong>Paul McCartney</strong></p><p class=\"article__paragraph article__indent-2\"><span class=\"article__color-#000000 article__bg-transparent\">UX/UI Developer at&nbsp;</span><a href=\"https://distillery.com/\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"article-link article-link_external article__color-#1155cc article__bg-transparent\">Distillery.com</a></p><p class=\"article__paragraph\"><br></p><p class=\"article__paragraph\"><span class=\"article__bg-#ffffff\">Please note that we use a </span><strong class=\"article__bg-#ffffff\">bold style </strong><span class=\"article__bg-#ffffff\">for your name and Title Case for the position.</span></p><p class=\"article__paragraph\"><br></p><h3 class=\"article__h3 title_h3\"><span class=\"article__bg-transparent article__color-#000000\">CALENDAR</span></h3><p class=\"article__paragraph\">Set up the time zone to local time in your Gmail Calendar.</p><p class=\"article__paragraph\"><br></p><h2 class=\"article__h2 title_h2\">SLACK</h2><p class=\"article__paragraph\"><span class=\"article__bg-transparent\">To communicate with colleagues you need to&nbsp;</span><a href=\"https://handbook.distillery.com/slack\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"article-link article-link_external article__bg-transparent article__color-#d8a462\">set up Slack</a>, our default messenger app<span class=\"article__bg-transparent\">. You will find an invitation in your work mail, or you can </span>join our workspace at distillery-tech.slack.com.</p><p class=\"article__paragraph\">To get Slack ready for work, you should fill in the profile: Photo, Name, What I Do, Office, Phone number, Time Zone, Office, and Github (this last one is only for devs).</p><p class=\"article__paragraph\"><br></p><h3 class=\"article__h3 title_h3\">INTERNAL RULES</h3><p class=\"article__paragraph\"><span class=\"article__bg-transparent\">Be sure to check out our&nbsp;</span><a href=\"https://handbook.distillery.com/slackrules\" rel=\"noopener noreferrer\" target=\"_blank\" class=\"article-link article-link_external article__bg-transparent article__color-#d8a462\">internal rules</a><span class=\"article__bg-transparent\">&nbsp;for using Slack.</span></p><p class=\"article__paragraph\"><br></p><h3 class=\"article__h3 title_h3\">CHANNELS</h3><p class=\"article__paragraph\"><span class=\"article__bg-transparent\">There are two channels in Slack that you have access to by default: #general (for posting news and announcements),  #random (informal communication channel) and your local office channel.&nbsp;</span><span class=\"article__bg-transparent article__color-#d8a462\">You can also join any other channels you like, from your department, clicktime-support, </span>informal channels, <span class=\"article__color-#d8a462 article__bg-transparent\">and many more!.</span></p><p class=\"article__paragraph\"><br></p><h2 class=\"article__h2 title_h2\"><span class=\"article__color-#000000\">ADP</span></h2><p class=\"article__paragraph\"><span class=\"article__color-#000000\">You will find a \"Welcome&nbsp;to ADP\" email in your Distillery corporate address with the link to join. </span></p><p class=\"article__paragraph\"><br></p><h2 class=\"article__h2 title_h2\"><br></h2>",
+                          "menu_index": "2.1",
+                          "weight": "20100",
+                          "level": 1,
+                          "children": [
+                            {
+                              "id": 26,
+                              "menu_label": "Org Chart",
+                              "is_article": false,
+                              "order": 3,
+                              "slug": "org-chart",
+                              "parent_id": 2,
+                              "status": true,
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error getting handbook menu"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Handbook"],
+        "summary": "Create a handbook item",
+        "description": "Create a handbook item",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "body",
+            "description": "Title of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "title": "title" }
+            }
+          },
+          {
+            "name": "content",
+            "in": "body",
+            "description": "Content of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "content": "content" }
+            }
+          },
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Order of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": { "order": 2 }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "body",
+            "description": "Slug of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "slug": "slug" }
+            }
+          },
+          {
+            "name": "level",
+            "in": "body",
+            "description": "Level of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "level": 1 }
+            }
+          },
+          {
+            "name": "menu_label",
+            "in": "body",
+            "description": "Menu label of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "menu_label": "menu_label" }
+            }
+          },
+          {
+            "name": "head_title",
+            "in": "body",
+            "description": "Head title of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "head_title": "head_title" }
+            }
+          },
+          {
+            "name": "h1_title",
+            "in": "body",
+            "description": "H1 title of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "h1_title": "h1_title" }
+            }
+          },
+          {
+            "name": "subtitle",
+            "in": "body",
+            "description": "Subtitle of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "subtitle": "subtitle" }
+            }
+          },
+          {
+            "name": "is_article",
+            "in": "body",
+            "description": "Mark the handbook item as an article",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "is_article": 1 }
+            }
+          },
+
+          {
+            "name": "parent_id",
+            "in": "body",
+            "description": "Parent id of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "parent_id": 1 }
+            }
+          },
+          {
+            "name": "is_external",
+            "in": "body",
+            "description": "Mark the handbook item as an external link",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "is_external": 1 }
+            }
+          },
+          {
+            "name": "external_url",
+            "in": "body",
+            "description": "External url of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "external_url": "external_url" }
+            }
+          },
+          {
+            "name": "short_description",
+            "in": "body",
+            "description": "Short description of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "short_description": "short_description" }
+            }
+          },
+          {
+            "name": "menu_index",
+            "in": "body",
+            "description": "Menu index of the handbook item",
+            "required": false,
+            "examploe": {
+              "type": "string",
+              "example": { "menu_index": 1 }
+            }
+          },
+          {
+            "name": "weight",
+            "in": "body",
+            "description": "Weight of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "weight": "20000" }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The position was created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 1,
+                    "menu_label": "Onboarding Booklet",
+                    "head_title": "Onboarding Booklet",
+                    "h1_title": "Onboarding Booklet",
+                    "title": "Onboarding Booklet",
+                    "subtitle": null,
+                    "order": 2,
+                    "is_article": null,
+                    "parent_id": null,
+                    "slug": "onboarding-booklet",
+                    "status": true,
+                    "created_at": "2023-05-09T18:45:37.000Z",
+                    "updated_at": "2023-05-15T17:31:44.000Z",
+                    "is_external": false,
+                    "external_url": null,
+                    "short_description": null,
+                    "content": null,
+                    "menu_index": "2",
+                    "weight": "20000",
+                    "level": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error creating a handbook item"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/handbook/{id}": {
+      "parameters": [
+        {
+          "name": "title",
+          "in": "body",
+          "description": "Title of the handbook item",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": { "title": "title" }
+          }
+        },
+        {
+          "name": "content",
+          "in": "body",
+          "description": "Content of the handbook item",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": { "content": "content" }
+          }
+        },
+        {
+          "name": "order",
+          "in": "body",
+          "description": "Order of the handbook item",
+          "required": true,
+          "schema": {
+            "type": "number",
+            "example": { "order": 2 }
+          }
+        },
+        {
+          "name": "slug",
+          "in": "body",
+          "description": "Slug of the handbook item",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": { "slug": "slug" }
+          }
+        },
+        {
+          "name": "level",
+          "in": "body",
+          "description": "Level of the handbook item",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "example": { "level": 1 }
+          }
+        },
+        {
+          "name": "menu_label",
+          "in": "body",
+          "description": "Menu label of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "menu_label": "menu_label" }
+          }
+        },
+        {
+          "name": "head_title",
+          "in": "body",
+          "description": "Head title of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "head_title": "head_title" }
+          }
+        },
+        {
+          "name": "h1_title",
+          "in": "body",
+          "description": "H1 title of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "h1_title": "h1_title" }
+          }
+        },
+        {
+          "name": "subtitle",
+          "in": "body",
+          "description": "Subtitle of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "subtitle": "subtitle" }
+          }
+        },
+        {
+          "name": "is_article",
+          "in": "body",
+          "description": "Mark the handbook item as an article",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "is_article": 1 }
+          }
+        },
+
+        {
+          "name": "parent_id",
+          "in": "body",
+          "description": "Parent id of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "parent_id": 1 }
+          }
+        },
+        {
+          "name": "is_external",
+          "in": "body",
+          "description": "Mark the handbook item as an external link",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "is_external": 1 }
+          }
+        },
+        {
+          "name": "external_url",
+          "in": "body",
+          "description": "External url of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "external_url": "external_url" }
+          }
+        },
+        {
+          "name": "short_description",
+          "in": "body",
+          "description": "Short description of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "short_description": "short_description" }
+          }
+        },
+        {
+          "name": "menu_index",
+          "in": "body",
+          "description": "Menu index of the handbook item",
+          "required": false,
+          "examploe": {
+            "type": "string",
+            "example": { "menu_index": 1 }
+          }
+        },
+        {
+          "name": "weight",
+          "in": "body",
+          "description": "Weight of the handbook item",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "example": { "weight": "20000" }
+          }
+        }
+      ],
+      "put": {
+        "tags": ["Handbook"],
+        "summary": "Update handbook item",
+        "description": "API to update the content of a handbook item",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "body",
+            "description": "Title of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "title": "title" }
+            }
+          },
+          {
+            "name": "content",
+            "in": "body",
+            "description": "Content of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "content": "content" }
+            }
+          },
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Order of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": { "order": 2 }
+            }
+          },
+          {
+            "name": "slug",
+            "in": "body",
+            "description": "Slug of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "slug": "slug" }
+            }
+          },
+          {
+            "name": "level",
+            "in": "body",
+            "description": "Level of the handbook item",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": { "level": 1 }
+            }
+          },
+          {
+            "name": "menu_label",
+            "in": "body",
+            "description": "Menu label of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "menu_label": "menu_label" }
+            }
+          },
+          {
+            "name": "head_title",
+            "in": "body",
+            "description": "Head title of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "head_title": "head_title" }
+            }
+          },
+          {
+            "name": "h1_title",
+            "in": "body",
+            "description": "H1 title of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "h1_title": "h1_title" }
+            }
+          },
+          {
+            "name": "subtitle",
+            "in": "body",
+            "description": "Subtitle of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "subtitle": "subtitle" }
+            }
+          },
+          {
+            "name": "is_article",
+            "in": "body",
+            "description": "Mark the handbook item as an article",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "is_article": 1 }
+            }
+          },
+
+          {
+            "name": "parent_id",
+            "in": "body",
+            "description": "Parent id of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "parent_id": 1 }
+            }
+          },
+          {
+            "name": "is_external",
+            "in": "body",
+            "description": "Mark the handbook item as an external link",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "is_external": 1 }
+            }
+          },
+          {
+            "name": "external_url",
+            "in": "body",
+            "description": "External url of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "external_url": "external_url" }
+            }
+          },
+          {
+            "name": "short_description",
+            "in": "body",
+            "description": "Short description of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "short_description": "short_description" }
+            }
+          },
+          {
+            "name": "menu_index",
+            "in": "body",
+            "description": "Menu index of the handbook item",
+            "required": false,
+            "examploe": {
+              "type": "string",
+              "example": { "menu_index": 1 }
+            }
+          },
+          {
+            "name": "weight",
+            "in": "body",
+            "description": "Weight of the handbook item",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": { "weight": "20000" }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The position was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "id": 1,
+                    "menu_label": "Onboarding Booklet",
+                    "head_title": "Onboarding Booklet",
+                    "h1_title": "Onboarding Booklet",
+                    "title": "Onboarding Booklet",
+                    "subtitle": null,
+                    "order": 2,
+                    "is_article": null,
+                    "parent_id": null,
+                    "slug": "onboarding-booklet",
+                    "status": true,
+                    "created_at": "2023-05-09T18:45:37.000Z",
+                    "updated_at": "2023-05-15T17:31:44.000Z",
+                    "is_external": "0",
+                    "external_url": null,
+                    "short_description": null,
+                    "content": null,
+                    "menu_index": "2",
+                    "weight": "20000",
+                    "level": 0
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error updating a handbook item"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Handbook"],
+        "summary": "Delete handbook item",
+        "description": "API to delete a handbook item, this is only a soft delete changing the position status",
+        "responses": {
+          "200": {
+            "description": "The handbook item was deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "object"
+                  },
+                  "example": {
+                    "message": "Handbook item deleted"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "There was an error during the process",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "Error deleting a handbook item"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The user who is consulting this API needs to login first",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "message": "The user is not logged in",
+                    "error": "The user is not logged in"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "id": "user",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User name"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "User last name"
+          },
+          "country": {
+            "type": "string",
+            "description": "User country"
+          },
+          "department": {
+            "type": "string",
+            "description": "User distillery department"
+          },
+          "position": {
+            "type": "string",
+            "description": "User position"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "Profile image of the user"
+          },
+          "announcements": {
+            "$ref": "#/components/schemas/Announcement",
+            "description": "Announcements created by the user"
+          },
+          "permissions": {
+            "$ref": "#/components/schemas/Permission",
+            "description": "Permissions of the user over the application components"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of the user"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Permission": {
+        "id": "permission",
+        "properties": {
+          "role_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User id who this permissions belongs"
+          },
+          "user_email": {
+            "type": "string",
+            "description": "User email who this permissions belongs"
+          },
+          "announcement_view": {
+            "type": "boolean",
+            "description": "The user can view announcements"
+          },
+          "announcement_create": {
+            "type": "boolean",
+            "description": "The user can create announcements"
+          },
+          "announcement_edit": {
+            "type": "boolean",
+            "description": "The user can edit announcements"
+          },
+          "announcement_delete": {
+            "type": "boolean",
+            "description": "The user can delete announcements"
+          },
+          "job_view": {
+            "type": "boolean",
+            "description": "The user can view positions"
+          },
+          "job_create": {
+            "type": "boolean",
+            "description": "The user can create positions"
+          },
+          "job_edit": {
+            "type": "boolean",
+            "description": "The user can edit positions"
+          },
+          "job_delete": {
+            "type": "boolean",
+            "description": "The user can delete positions"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User",
+            "description": "User who create the announcement"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Announcement": {
+        "id": "announcement",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "string",
+            "description": "User email who create the announcement"
+          },
+          "title": {
+            "type": "string",
+            "description": "Announcement title"
+          },
+          "description": {
+            "type": "string",
+            "description": "Announcement content"
+          },
+          "image": {
+            "type": "string",
+            "description": "Announcement image"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User",
+            "description": "User who create the announcement"
+          },
+          "last_updated_by": {
+            "type": "number",
+            "description": "User user id from the last user who updated the announcement"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isActive": {
+            "type": "string",
+            "description": "Status of the announcement",
+            "enum": ["active", "inactive"]
+          }
+        }
+      },
+      "Benefit": {
+        "id": "benefit",
+        "properties": {
+          "benefit_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The identifier of the benefit"
+          },
+          "category_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Category to which the benefit belongs"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the benefit"
+          },
+          "content": {
+            "type": "string",
+            "description": "A description of the benefit"
+          },
+          "location": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Place where the benefit is applied"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date which the benefit was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date which the benefit was updated"
+          }
+        }
+      },
+      "Position": {
+        "id": "position",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the position"
+          },
+          "client": {
+            "type": "string",
+            "description": "Client who is offering the position"
+          },
+          "openings": {
+            "type": "integer",
+            "description": "Number of vacancies"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the position"
+          },
+          "position_id": {
+            "type": "string"
+          },
+          "is_open": {
+            "type": "boolean",
+            "description": "Indicates if the position is open"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Anniversary": {
+        "id": "anniversary",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "position:": {
+            "type": "string",
+            "description": "Position in the company of the employee"
+          },
+          "image:": {
+            "type": "string",
+            "description": "Image of the employee"
+          },
+          "years_difference:": {
+            "type": "string",
+            "description": "Number of years the employees is in the company"
+          },
+          "type:": {
+            "type": "string",
+            "description": "Can be birthday or hire date"
+          },
+          "date:": {
+            "type": "string",
+            "description": "Record date"
+          }
+        }
+      },
+      "Comment": {
+        "id": "comment",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "User to which the comment belongs"
+          },
+          "announcement_id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Announcement to which the comment belongs"
+          },
+          "content:": {
+            "type": "string",
+            "description": "Content of the comment"
+          },
+          "status": {
+            "type": "boolean",
+            "description": "Indicates if the comment is active or not"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Reaction": {
+        "id": "reaction",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name:": {
+            "type": "string",
+            "description": "Name of the reaction"
+          },
+          "icon:": {
+            "type": "string",
+            "description": "Icon of the reaction"
+          },
+          "status": {
+            "type": "boolean",
+            "description": "Indicates if the reaction is active or not"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "markdown",
+    "mdx",
+    "typescript",
+    "typescriptreact"
+  ],
+  "cSpell.words": [
+    "badeball",
+    "bahmutov",
+    "buildx",
+    "depdendencies",
+    "dind",
+    "dompurify",
+    "dtzar",
+    "esbuild",
+    "IPAGINATION",
+    "jdrouet",
+    "linkify",
+    "NEXTAUTH",
+    "nimg",
+    "oapi",
+    "signin",
+    "svgr",
+    "tanstack",
+    "tiptap",
+    "transloadit",
+    "tstypes",
+    "typeconv",
+    "uppy",
+    "yamlassemble",
+    "Youcandoit"
+  ]
+}

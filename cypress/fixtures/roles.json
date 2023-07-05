@@ -1,0 +1,14 @@
+{
+  "HR-Business-Partner": {
+    "email": "hrbp_intratest_user@distillery.com",
+    "password": "@Youcandoit22"
+  },
+  "Recruitment": {
+    "email": "rec_intratest_user@distillery.com",
+    "password": "@Youcandoit22"
+  },
+  "System-administration": {
+    "email": "sysadmin_intratest_user@distillery.com",
+    "password": "@Youcandoit22"
+  }
+}
