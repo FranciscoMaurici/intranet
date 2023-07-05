@@ -6,7 +6,7 @@ import { User } from '@prisma/client'
 import {
   IAnnouncement, 
   IAnnouncementDeleteResponse,
-  IAnnouncementGetAllRequest,
+  IAnnouncementGetAllRequest, 
   IAnnouncementGetAllResponse,
   IAnnouncementPostPutRequest,
   IAnnouncementPostPutResponse,
